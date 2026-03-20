@@ -3,7 +3,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'sign_in_response_dto.freezed.dart';
 part 'sign_in_response_dto.g.dart';
 
-// ---- nested: user object ----
 @freezed
 abstract class UserDto with _$UserDto {
   const factory UserDto({
@@ -19,7 +18,6 @@ abstract class UserDto with _$UserDto {
   factory UserDto.fromJson(Map<String, dynamic> json) => _$UserDtoFromJson(json);
 }
 
-// ---- root data object ----
 @freezed
 abstract class SignInResponseDto with _$SignInResponseDto {
   const factory SignInResponseDto({

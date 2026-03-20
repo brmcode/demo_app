@@ -90,7 +90,6 @@ class _ProfileView extends StatelessWidget {
         AppSpacing.gap24,
         FilledButton(
           onPressed: () {
-            // optional: redirect to Auth if we want to re-login
             context.goNamed(AppRoute.auth.name);
           },
           child: const Text('Manage account'),

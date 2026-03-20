@@ -14,7 +14,7 @@ class GoogleSignInNotifier extends _$GoogleSignInNotifier {
 
   @override
   GoogleSignInState build() {
-    _init();
+    Future.microtask(_init);
     return const GoogleSignInInitializing();
   }
 

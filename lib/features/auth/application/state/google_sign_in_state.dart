@@ -1,5 +1,3 @@
-// lib/features/auth/application/state/google_sign_in_state.dart
-
 import 'package:google_sign_in/google_sign_in.dart';
 
 sealed class GoogleSignInState {

@@ -1,10 +1,6 @@
-// lib/features/auth/data/service/google_sign_in_service.dart
-//
-// A lightweight wrapper around google_sign_in v7 that exposes a consistent
-// API and manages auth state via a stream.
-
 import 'dart:async';
-import 'package:flutter/foundation.dart' show debugPrint;
+import 'dart:developer';
+
 import 'package:google_sign_in/google_sign_in.dart';
 
 /// Result wrapper for sign-in operations.
@@ -27,10 +23,6 @@ class SignInFailure extends SignInResult {
   const SignInFailure(this.message, {this.error});
 }
 
-/// A service that wraps [google_sign_in] v7.
-///
-/// This is intentionally minimal so it can be used from Riverpod state
-/// management without pulling in ChangeNotifier.
 class GoogleSignInService {
   GoogleSignInService._();
   static final GoogleSignInService instance = GoogleSignInService._();
@@ -52,9 +44,9 @@ class GoogleSignInService {
       await _googleSignIn.initialize(serverClientId: serverClientId);
       _googleSignIn.authenticationEvents.listen(_handleAuthenticationEvent).onError(_handleAuthenticationError);
       _initialized = true;
-      debugPrint('[GoogleSignInService] Initialized successfully.');
+      log('[GoogleSignInService] Initialized successfully.');
     } catch (e) {
-      debugPrint('[GoogleSignInService] Initialization failed: $e');
+      log('[GoogleSignInService] Initialization failed: $e');
       rethrow;
     }
   }
@@ -69,7 +61,7 @@ class GoogleSignInService {
   }
 
   void _handleAuthenticationError(Object error, StackTrace stack) {
-    debugPrint('[GoogleSignInService] Auth stream error: $error');
+    log('[GoogleSignInService] Auth stream error: $error');
     _updateUser(null);
   }
 
@@ -94,7 +86,7 @@ class GoogleSignInService {
       }
       return result as GoogleSignInAccount?;
     } catch (e) {
-      debugPrint('[GoogleSignInService] Silent sign-in failed: $e');
+      log('[GoogleSignInService] Silent sign-in failed: $e');
       return null;
     }
   }
@@ -112,13 +104,13 @@ class GoogleSignInService {
       return SignInSuccess(account);
     } on GoogleSignInException catch (e) {
       final message = _exceptionToMessage(e);
-      debugPrint('[GoogleSignInService] GoogleSignInException: ${e.code} – ${e.description}');
+      log('[GoogleSignInService] GoogleSignInException: ${e.code} – ${e.description}');
       if (e.code == GoogleSignInExceptionCode.canceled) {
         return const SignInCancelled();
       }
       return SignInFailure(message, error: e);
     } catch (e) {
-      debugPrint('[GoogleSignInService] Unexpected error: $e');
+      log('[GoogleSignInService] Unexpected error: $e');
       return SignInFailure('An unexpected error occurred.', error: e);
     }
   }
@@ -144,10 +136,10 @@ class GoogleSignInService {
 
       return await _currentUser!.authorizationClient.authorizeScopes(scopes);
     } on GoogleSignInException catch (e) {
-      debugPrint('[GoogleSignInService] requestScopes error: ${e.code} – ${e.description}');
+      log('[GoogleSignInService] requestScopes error: ${e.code} – ${e.description}');
       return null;
     } catch (e) {
-      debugPrint('[GoogleSignInService] requestScopes unexpected error: $e');
+      log('[GoogleSignInService] requestScopes unexpected error: $e');
       return null;
     }
   }
@@ -160,7 +152,7 @@ class GoogleSignInService {
       final serverAuth = await _currentUser!.authorizationClient.authorizeServer(scopes);
       return serverAuth?.serverAuthCode;
     } catch (e) {
-      debugPrint('[GoogleSignInService] getServerAuthCode error: $e');
+      log('[GoogleSignInService] getServerAuthCode error: $e');
       return null;
     }
   }
