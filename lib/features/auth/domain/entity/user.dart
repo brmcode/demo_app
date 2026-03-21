@@ -4,6 +4,7 @@ class User {
   final String lastName;
   final String email;
   final String role;
+  final String imageUrl;
   final String sessionId;
   final String accessToken;
   final DateTime accessTokenExpiresAt;
@@ -16,6 +17,7 @@ class User {
     required this.lastName,
     required this.email,
     required this.role,
+    required this.imageUrl,
     required this.sessionId,
     required this.accessToken,
     required this.accessTokenExpiresAt,

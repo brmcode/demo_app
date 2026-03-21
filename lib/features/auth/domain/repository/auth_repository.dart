@@ -9,5 +9,11 @@ abstract interface class AuthRepository {
     required String role,
   });
 
-  Future<Result<void, Failure>> signOut();
+  Future<Result<void, Failure>> signOut({
+    required String refreshToken,
+  });
+
+  Future<Result<User, Failure>> googleSignIn({
+    required String idToken,
+  });
 }

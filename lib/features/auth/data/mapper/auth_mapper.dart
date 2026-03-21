@@ -1,6 +1,5 @@
 import 'package:demo_app/features/auth/data/dto/response/sign_in_response_dto.dart';
-
-import '../../domain/entity/user.dart';
+import 'package:demo_app/features/auth/domain/entity/user.dart';
 
 abstract class AuthMapper {
   static User fromDto(SignInResponseDto dto) => User(
@@ -9,10 +8,11 @@ abstract class AuthMapper {
     lastName: dto.user.lastName,
     email: dto.user.email,
     role: dto.user.role,
+    imageUrl: dto.user.imageUrl,
     sessionId: dto.sessionId,
     accessToken: dto.accessToken,
-    accessTokenExpiresAt: DateTime.parse(dto.accessTokenExpiresAt),
+    accessTokenExpiresAt: dto.accessTokenExpiresAt,
     refreshToken: dto.refreshToken,
-    refreshTokenExpiresAt: DateTime.parse(dto.refreshTokenExpiresAt),
+    refreshTokenExpiresAt: dto.refreshTokenExpiresAt,
   );
 }

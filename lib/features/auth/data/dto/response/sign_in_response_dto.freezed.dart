@@ -13,42 +13,42 @@ part of 'sign_in_response_dto.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$UserDto {
+mixin _$SignInResult<T> {
 
- String get username;@JsonKey(name: 'first_name') String get firstName;@JsonKey(name: 'last_name') String get lastName; String get email; String get role;@JsonKey(name: 'password_changed_at') String get passwordChangedAt;@JsonKey(name: 'created_at') String get createdAt;
-/// Create a copy of UserDto
+ bool get success;@JsonKey(name: 'status_code') int get statusCode; String get message; T? get data; List<String>? get errors;
+/// Create a copy of SignInResult
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$UserDtoCopyWith<UserDto> get copyWith => _$UserDtoCopyWithImpl<UserDto>(this as UserDto, _$identity);
+$SignInResultCopyWith<T, SignInResult<T>> get copyWith => _$SignInResultCopyWithImpl<T, SignInResult<T>>(this as SignInResult<T>, _$identity);
 
-  /// Serializes this UserDto to a JSON map.
-  Map<String, dynamic> toJson();
+  /// Serializes this SignInResult to a JSON map.
+  Map<String, dynamic> toJson(Object? Function(T) toJsonT);
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserDto&&(identical(other.username, username) || other.username == username)&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.email, email) || other.email == email)&&(identical(other.role, role) || other.role == role)&&(identical(other.passwordChangedAt, passwordChangedAt) || other.passwordChangedAt == passwordChangedAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignInResult<T>&&(identical(other.success, success) || other.success == success)&&(identical(other.statusCode, statusCode) || other.statusCode == statusCode)&&(identical(other.message, message) || other.message == message)&&const DeepCollectionEquality().equals(other.data, data)&&const DeepCollectionEquality().equals(other.errors, errors));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,username,firstName,lastName,email,role,passwordChangedAt,createdAt);
+int get hashCode => Object.hash(runtimeType,success,statusCode,message,const DeepCollectionEquality().hash(data),const DeepCollectionEquality().hash(errors));
 
 @override
 String toString() {
-  return 'UserDto(username: $username, firstName: $firstName, lastName: $lastName, email: $email, role: $role, passwordChangedAt: $passwordChangedAt, createdAt: $createdAt)';
+  return 'SignInResult<$T>(success: $success, statusCode: $statusCode, message: $message, data: $data, errors: $errors)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $UserDtoCopyWith<$Res>  {
-  factory $UserDtoCopyWith(UserDto value, $Res Function(UserDto) _then) = _$UserDtoCopyWithImpl;
+abstract mixin class $SignInResultCopyWith<T,$Res>  {
+  factory $SignInResultCopyWith(SignInResult<T> value, $Res Function(SignInResult<T>) _then) = _$SignInResultCopyWithImpl;
 @useResult
 $Res call({
- String username,@JsonKey(name: 'first_name') String firstName,@JsonKey(name: 'last_name') String lastName, String email, String role,@JsonKey(name: 'password_changed_at') String passwordChangedAt,@JsonKey(name: 'created_at') String createdAt
+ bool success,@JsonKey(name: 'status_code') int statusCode, String message, T? data, List<String>? errors
 });
 
 
@@ -56,33 +56,31 @@ $Res call({
 
 }
 /// @nodoc
-class _$UserDtoCopyWithImpl<$Res>
-    implements $UserDtoCopyWith<$Res> {
-  _$UserDtoCopyWithImpl(this._self, this._then);
+class _$SignInResultCopyWithImpl<T,$Res>
+    implements $SignInResultCopyWith<T, $Res> {
+  _$SignInResultCopyWithImpl(this._self, this._then);
 
-  final UserDto _self;
-  final $Res Function(UserDto) _then;
+  final SignInResult<T> _self;
+  final $Res Function(SignInResult<T>) _then;
 
-/// Create a copy of UserDto
+/// Create a copy of SignInResult
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? username = null,Object? firstName = null,Object? lastName = null,Object? email = null,Object? role = null,Object? passwordChangedAt = null,Object? createdAt = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? success = null,Object? statusCode = null,Object? message = null,Object? data = freezed,Object? errors = freezed,}) {
   return _then(_self.copyWith(
-username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
-as String,firstName: null == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
-as String,lastName: null == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
-as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
-as String,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
-as String,passwordChangedAt: null == passwordChangedAt ? _self.passwordChangedAt : passwordChangedAt // ignore: cast_nullable_to_non_nullable
-as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as String,
+success: null == success ? _self.success : success // ignore: cast_nullable_to_non_nullable
+as bool,statusCode: null == statusCode ? _self.statusCode : statusCode // ignore: cast_nullable_to_non_nullable
+as int,message: null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,data: freezed == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
+as T?,errors: freezed == errors ? _self.errors : errors // ignore: cast_nullable_to_non_nullable
+as List<String>?,
   ));
 }
 
 }
 
 
-/// Adds pattern-matching-related methods to [UserDto].
-extension UserDtoPatterns on UserDto {
+/// Adds pattern-matching-related methods to [SignInResult].
+extension SignInResultPatterns<T> on SignInResult<T> {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -95,10 +93,10 @@ extension UserDtoPatterns on UserDto {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _UserDto value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SignInResult<T> value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _UserDto() when $default != null:
+case _SignInResult() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -117,10 +115,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _UserDto value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SignInResult<T> value)  $default,){
 final _that = this;
 switch (_that) {
-case _UserDto():
+case _SignInResult():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -138,10 +136,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _UserDto value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SignInResult<T> value)?  $default,){
 final _that = this;
 switch (_that) {
-case _UserDto() when $default != null:
+case _SignInResult() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -159,10 +157,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String username, @JsonKey(name: 'first_name')  String firstName, @JsonKey(name: 'last_name')  String lastName,  String email,  String role, @JsonKey(name: 'password_changed_at')  String passwordChangedAt, @JsonKey(name: 'created_at')  String createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool success, @JsonKey(name: 'status_code')  int statusCode,  String message,  T? data,  List<String>? errors)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _UserDto() when $default != null:
-return $default(_that.username,_that.firstName,_that.lastName,_that.email,_that.role,_that.passwordChangedAt,_that.createdAt);case _:
+case _SignInResult() when $default != null:
+return $default(_that.success,_that.statusCode,_that.message,_that.data,_that.errors);case _:
   return orElse();
 
 }
@@ -180,10 +178,10 @@ return $default(_that.username,_that.firstName,_that.lastName,_that.email,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String username, @JsonKey(name: 'first_name')  String firstName, @JsonKey(name: 'last_name')  String lastName,  String email,  String role, @JsonKey(name: 'password_changed_at')  String passwordChangedAt, @JsonKey(name: 'created_at')  String createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool success, @JsonKey(name: 'status_code')  int statusCode,  String message,  T? data,  List<String>? errors)  $default,) {final _that = this;
 switch (_that) {
-case _UserDto():
-return $default(_that.username,_that.firstName,_that.lastName,_that.email,_that.role,_that.passwordChangedAt,_that.createdAt);case _:
+case _SignInResult():
+return $default(_that.success,_that.statusCode,_that.message,_that.data,_that.errors);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -200,10 +198,10 @@ return $default(_that.username,_that.firstName,_that.lastName,_that.email,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String username, @JsonKey(name: 'first_name')  String firstName, @JsonKey(name: 'last_name')  String lastName,  String email,  String role, @JsonKey(name: 'password_changed_at')  String passwordChangedAt, @JsonKey(name: 'created_at')  String createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool success, @JsonKey(name: 'status_code')  int statusCode,  String message,  T? data,  List<String>? errors)?  $default,) {final _that = this;
 switch (_that) {
-case _UserDto() when $default != null:
-return $default(_that.username,_that.firstName,_that.lastName,_that.email,_that.role,_that.passwordChangedAt,_that.createdAt);case _:
+case _SignInResult() when $default != null:
+return $default(_that.success,_that.statusCode,_that.message,_that.data,_that.errors);case _:
   return null;
 
 }
@@ -212,54 +210,60 @@ return $default(_that.username,_that.firstName,_that.lastName,_that.email,_that.
 }
 
 /// @nodoc
-@JsonSerializable()
+@JsonSerializable(genericArgumentFactories: true)
 
-class _UserDto implements UserDto {
-  const _UserDto({required this.username, @JsonKey(name: 'first_name') required this.firstName, @JsonKey(name: 'last_name') required this.lastName, required this.email, required this.role, @JsonKey(name: 'password_changed_at') required this.passwordChangedAt, @JsonKey(name: 'created_at') required this.createdAt});
-  factory _UserDto.fromJson(Map<String, dynamic> json) => _$UserDtoFromJson(json);
+class _SignInResult<T> implements SignInResult<T> {
+  const _SignInResult({required this.success, @JsonKey(name: 'status_code') required this.statusCode, required this.message, this.data, final  List<String>? errors}): _errors = errors;
+  factory _SignInResult.fromJson(Map<String, dynamic> json,T Function(Object?) fromJsonT) => _$SignInResultFromJson(json,fromJsonT);
 
-@override final  String username;
-@override@JsonKey(name: 'first_name') final  String firstName;
-@override@JsonKey(name: 'last_name') final  String lastName;
-@override final  String email;
-@override final  String role;
-@override@JsonKey(name: 'password_changed_at') final  String passwordChangedAt;
-@override@JsonKey(name: 'created_at') final  String createdAt;
+@override final  bool success;
+@override@JsonKey(name: 'status_code') final  int statusCode;
+@override final  String message;
+@override final  T? data;
+ final  List<String>? _errors;
+@override List<String>? get errors {
+  final value = _errors;
+  if (value == null) return null;
+  if (_errors is EqualUnmodifiableListView) return _errors;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
 
-/// Create a copy of UserDto
+
+/// Create a copy of SignInResult
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$UserDtoCopyWith<_UserDto> get copyWith => __$UserDtoCopyWithImpl<_UserDto>(this, _$identity);
+_$SignInResultCopyWith<T, _SignInResult<T>> get copyWith => __$SignInResultCopyWithImpl<T, _SignInResult<T>>(this, _$identity);
 
 @override
-Map<String, dynamic> toJson() {
-  return _$UserDtoToJson(this, );
+Map<String, dynamic> toJson(Object? Function(T) toJsonT) {
+  return _$SignInResultToJson<T>(this, toJsonT);
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserDto&&(identical(other.username, username) || other.username == username)&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.email, email) || other.email == email)&&(identical(other.role, role) || other.role == role)&&(identical(other.passwordChangedAt, passwordChangedAt) || other.passwordChangedAt == passwordChangedAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SignInResult<T>&&(identical(other.success, success) || other.success == success)&&(identical(other.statusCode, statusCode) || other.statusCode == statusCode)&&(identical(other.message, message) || other.message == message)&&const DeepCollectionEquality().equals(other.data, data)&&const DeepCollectionEquality().equals(other._errors, _errors));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,username,firstName,lastName,email,role,passwordChangedAt,createdAt);
+int get hashCode => Object.hash(runtimeType,success,statusCode,message,const DeepCollectionEquality().hash(data),const DeepCollectionEquality().hash(_errors));
 
 @override
 String toString() {
-  return 'UserDto(username: $username, firstName: $firstName, lastName: $lastName, email: $email, role: $role, passwordChangedAt: $passwordChangedAt, createdAt: $createdAt)';
+  return 'SignInResult<$T>(success: $success, statusCode: $statusCode, message: $message, data: $data, errors: $errors)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$UserDtoCopyWith<$Res> implements $UserDtoCopyWith<$Res> {
-  factory _$UserDtoCopyWith(_UserDto value, $Res Function(_UserDto) _then) = __$UserDtoCopyWithImpl;
+abstract mixin class _$SignInResultCopyWith<T,$Res> implements $SignInResultCopyWith<T, $Res> {
+  factory _$SignInResultCopyWith(_SignInResult<T> value, $Res Function(_SignInResult<T>) _then) = __$SignInResultCopyWithImpl;
 @override @useResult
 $Res call({
- String username,@JsonKey(name: 'first_name') String firstName,@JsonKey(name: 'last_name') String lastName, String email, String role,@JsonKey(name: 'password_changed_at') String passwordChangedAt,@JsonKey(name: 'created_at') String createdAt
+ bool success,@JsonKey(name: 'status_code') int statusCode, String message, T? data, List<String>? errors
 });
 
 
@@ -267,25 +271,23 @@ $Res call({
 
 }
 /// @nodoc
-class __$UserDtoCopyWithImpl<$Res>
-    implements _$UserDtoCopyWith<$Res> {
-  __$UserDtoCopyWithImpl(this._self, this._then);
+class __$SignInResultCopyWithImpl<T,$Res>
+    implements _$SignInResultCopyWith<T, $Res> {
+  __$SignInResultCopyWithImpl(this._self, this._then);
 
-  final _UserDto _self;
-  final $Res Function(_UserDto) _then;
+  final _SignInResult<T> _self;
+  final $Res Function(_SignInResult<T>) _then;
 
-/// Create a copy of UserDto
+/// Create a copy of SignInResult
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? username = null,Object? firstName = null,Object? lastName = null,Object? email = null,Object? role = null,Object? passwordChangedAt = null,Object? createdAt = null,}) {
-  return _then(_UserDto(
-username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
-as String,firstName: null == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
-as String,lastName: null == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
-as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
-as String,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
-as String,passwordChangedAt: null == passwordChangedAt ? _self.passwordChangedAt : passwordChangedAt // ignore: cast_nullable_to_non_nullable
-as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as String,
+@override @pragma('vm:prefer-inline') $Res call({Object? success = null,Object? statusCode = null,Object? message = null,Object? data = freezed,Object? errors = freezed,}) {
+  return _then(_SignInResult<T>(
+success: null == success ? _self.success : success // ignore: cast_nullable_to_non_nullable
+as bool,statusCode: null == statusCode ? _self.statusCode : statusCode // ignore: cast_nullable_to_non_nullable
+as int,message: null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,data: freezed == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
+as T?,errors: freezed == errors ? _self._errors : errors // ignore: cast_nullable_to_non_nullable
+as List<String>?,
   ));
 }
 
@@ -296,7 +298,7 @@ as String,
 /// @nodoc
 mixin _$SignInResponseDto {
 
-@JsonKey(name: 'session_id') String get sessionId;@JsonKey(name: 'access_token') String get accessToken;@JsonKey(name: 'access_token_expires_at') String get accessTokenExpiresAt;@JsonKey(name: 'refresh_token') String get refreshToken;@JsonKey(name: 'refresh_token_expires_at') String get refreshTokenExpiresAt; UserDto get user;
+@JsonKey(name: "session_id") String get sessionId;@JsonKey(name: "access_token") String get accessToken;@JsonKey(name: "access_token_expires_at") DateTime get accessTokenExpiresAt;@JsonKey(name: "refresh_token") String get refreshToken;@JsonKey(name: "refresh_token_expires_at") DateTime get refreshTokenExpiresAt; UserDto get user;
 /// Create a copy of SignInResponseDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -329,7 +331,7 @@ abstract mixin class $SignInResponseDtoCopyWith<$Res>  {
   factory $SignInResponseDtoCopyWith(SignInResponseDto value, $Res Function(SignInResponseDto) _then) = _$SignInResponseDtoCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'session_id') String sessionId,@JsonKey(name: 'access_token') String accessToken,@JsonKey(name: 'access_token_expires_at') String accessTokenExpiresAt,@JsonKey(name: 'refresh_token') String refreshToken,@JsonKey(name: 'refresh_token_expires_at') String refreshTokenExpiresAt, UserDto user
+@JsonKey(name: "session_id") String sessionId,@JsonKey(name: "access_token") String accessToken,@JsonKey(name: "access_token_expires_at") DateTime accessTokenExpiresAt,@JsonKey(name: "refresh_token") String refreshToken,@JsonKey(name: "refresh_token_expires_at") DateTime refreshTokenExpiresAt, UserDto user
 });
 
 
@@ -351,9 +353,9 @@ class _$SignInResponseDtoCopyWithImpl<$Res>
 sessionId: null == sessionId ? _self.sessionId : sessionId // ignore: cast_nullable_to_non_nullable
 as String,accessToken: null == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
 as String,accessTokenExpiresAt: null == accessTokenExpiresAt ? _self.accessTokenExpiresAt : accessTokenExpiresAt // ignore: cast_nullable_to_non_nullable
-as String,refreshToken: null == refreshToken ? _self.refreshToken : refreshToken // ignore: cast_nullable_to_non_nullable
+as DateTime,refreshToken: null == refreshToken ? _self.refreshToken : refreshToken // ignore: cast_nullable_to_non_nullable
 as String,refreshTokenExpiresAt: null == refreshTokenExpiresAt ? _self.refreshTokenExpiresAt : refreshTokenExpiresAt // ignore: cast_nullable_to_non_nullable
-as String,user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
+as DateTime,user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
 as UserDto,
   ));
 }
@@ -448,7 +450,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'session_id')  String sessionId, @JsonKey(name: 'access_token')  String accessToken, @JsonKey(name: 'access_token_expires_at')  String accessTokenExpiresAt, @JsonKey(name: 'refresh_token')  String refreshToken, @JsonKey(name: 'refresh_token_expires_at')  String refreshTokenExpiresAt,  UserDto user)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: "session_id")  String sessionId, @JsonKey(name: "access_token")  String accessToken, @JsonKey(name: "access_token_expires_at")  DateTime accessTokenExpiresAt, @JsonKey(name: "refresh_token")  String refreshToken, @JsonKey(name: "refresh_token_expires_at")  DateTime refreshTokenExpiresAt,  UserDto user)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SignInResponseDto() when $default != null:
 return $default(_that.sessionId,_that.accessToken,_that.accessTokenExpiresAt,_that.refreshToken,_that.refreshTokenExpiresAt,_that.user);case _:
@@ -469,7 +471,7 @@ return $default(_that.sessionId,_that.accessToken,_that.accessTokenExpiresAt,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'session_id')  String sessionId, @JsonKey(name: 'access_token')  String accessToken, @JsonKey(name: 'access_token_expires_at')  String accessTokenExpiresAt, @JsonKey(name: 'refresh_token')  String refreshToken, @JsonKey(name: 'refresh_token_expires_at')  String refreshTokenExpiresAt,  UserDto user)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: "session_id")  String sessionId, @JsonKey(name: "access_token")  String accessToken, @JsonKey(name: "access_token_expires_at")  DateTime accessTokenExpiresAt, @JsonKey(name: "refresh_token")  String refreshToken, @JsonKey(name: "refresh_token_expires_at")  DateTime refreshTokenExpiresAt,  UserDto user)  $default,) {final _that = this;
 switch (_that) {
 case _SignInResponseDto():
 return $default(_that.sessionId,_that.accessToken,_that.accessTokenExpiresAt,_that.refreshToken,_that.refreshTokenExpiresAt,_that.user);case _:
@@ -489,7 +491,7 @@ return $default(_that.sessionId,_that.accessToken,_that.accessTokenExpiresAt,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'session_id')  String sessionId, @JsonKey(name: 'access_token')  String accessToken, @JsonKey(name: 'access_token_expires_at')  String accessTokenExpiresAt, @JsonKey(name: 'refresh_token')  String refreshToken, @JsonKey(name: 'refresh_token_expires_at')  String refreshTokenExpiresAt,  UserDto user)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: "session_id")  String sessionId, @JsonKey(name: "access_token")  String accessToken, @JsonKey(name: "access_token_expires_at")  DateTime accessTokenExpiresAt, @JsonKey(name: "refresh_token")  String refreshToken, @JsonKey(name: "refresh_token_expires_at")  DateTime refreshTokenExpiresAt,  UserDto user)?  $default,) {final _that = this;
 switch (_that) {
 case _SignInResponseDto() when $default != null:
 return $default(_that.sessionId,_that.accessToken,_that.accessTokenExpiresAt,_that.refreshToken,_that.refreshTokenExpiresAt,_that.user);case _:
@@ -504,14 +506,14 @@ return $default(_that.sessionId,_that.accessToken,_that.accessTokenExpiresAt,_th
 @JsonSerializable()
 
 class _SignInResponseDto implements SignInResponseDto {
-  const _SignInResponseDto({@JsonKey(name: 'session_id') required this.sessionId, @JsonKey(name: 'access_token') required this.accessToken, @JsonKey(name: 'access_token_expires_at') required this.accessTokenExpiresAt, @JsonKey(name: 'refresh_token') required this.refreshToken, @JsonKey(name: 'refresh_token_expires_at') required this.refreshTokenExpiresAt, required this.user});
+  const _SignInResponseDto({@JsonKey(name: "session_id") required this.sessionId, @JsonKey(name: "access_token") required this.accessToken, @JsonKey(name: "access_token_expires_at") required this.accessTokenExpiresAt, @JsonKey(name: "refresh_token") required this.refreshToken, @JsonKey(name: "refresh_token_expires_at") required this.refreshTokenExpiresAt, required this.user});
   factory _SignInResponseDto.fromJson(Map<String, dynamic> json) => _$SignInResponseDtoFromJson(json);
 
-@override@JsonKey(name: 'session_id') final  String sessionId;
-@override@JsonKey(name: 'access_token') final  String accessToken;
-@override@JsonKey(name: 'access_token_expires_at') final  String accessTokenExpiresAt;
-@override@JsonKey(name: 'refresh_token') final  String refreshToken;
-@override@JsonKey(name: 'refresh_token_expires_at') final  String refreshTokenExpiresAt;
+@override@JsonKey(name: "session_id") final  String sessionId;
+@override@JsonKey(name: "access_token") final  String accessToken;
+@override@JsonKey(name: "access_token_expires_at") final  DateTime accessTokenExpiresAt;
+@override@JsonKey(name: "refresh_token") final  String refreshToken;
+@override@JsonKey(name: "refresh_token_expires_at") final  DateTime refreshTokenExpiresAt;
 @override final  UserDto user;
 
 /// Create a copy of SignInResponseDto
@@ -547,7 +549,7 @@ abstract mixin class _$SignInResponseDtoCopyWith<$Res> implements $SignInRespons
   factory _$SignInResponseDtoCopyWith(_SignInResponseDto value, $Res Function(_SignInResponseDto) _then) = __$SignInResponseDtoCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'session_id') String sessionId,@JsonKey(name: 'access_token') String accessToken,@JsonKey(name: 'access_token_expires_at') String accessTokenExpiresAt,@JsonKey(name: 'refresh_token') String refreshToken,@JsonKey(name: 'refresh_token_expires_at') String refreshTokenExpiresAt, UserDto user
+@JsonKey(name: "session_id") String sessionId,@JsonKey(name: "access_token") String accessToken,@JsonKey(name: "access_token_expires_at") DateTime accessTokenExpiresAt,@JsonKey(name: "refresh_token") String refreshToken,@JsonKey(name: "refresh_token_expires_at") DateTime refreshTokenExpiresAt, UserDto user
 });
 
 
@@ -569,9 +571,9 @@ class __$SignInResponseDtoCopyWithImpl<$Res>
 sessionId: null == sessionId ? _self.sessionId : sessionId // ignore: cast_nullable_to_non_nullable
 as String,accessToken: null == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
 as String,accessTokenExpiresAt: null == accessTokenExpiresAt ? _self.accessTokenExpiresAt : accessTokenExpiresAt // ignore: cast_nullable_to_non_nullable
-as String,refreshToken: null == refreshToken ? _self.refreshToken : refreshToken // ignore: cast_nullable_to_non_nullable
+as DateTime,refreshToken: null == refreshToken ? _self.refreshToken : refreshToken // ignore: cast_nullable_to_non_nullable
 as String,refreshTokenExpiresAt: null == refreshTokenExpiresAt ? _self.refreshTokenExpiresAt : refreshTokenExpiresAt // ignore: cast_nullable_to_non_nullable
-as String,user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
+as DateTime,user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
 as UserDto,
   ));
 }
@@ -586,6 +588,290 @@ $UserDtoCopyWith<$Res> get user {
     return _then(_self.copyWith(user: value));
   });
 }
+}
+
+
+/// @nodoc
+mixin _$UserDto {
+
+ String get username;@JsonKey(name: "first_name") String get firstName;@JsonKey(name: "last_name") String get lastName; String get email;@JsonKey(name: "image_url") String get imageUrl; String get role;@JsonKey(name: "password_changed_at") DateTime get passwordChangedAt;@JsonKey(name: "created_at") DateTime get createdAt;
+/// Create a copy of UserDto
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$UserDtoCopyWith<UserDto> get copyWith => _$UserDtoCopyWithImpl<UserDto>(this as UserDto, _$identity);
+
+  /// Serializes this UserDto to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserDto&&(identical(other.username, username) || other.username == username)&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.email, email) || other.email == email)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.role, role) || other.role == role)&&(identical(other.passwordChangedAt, passwordChangedAt) || other.passwordChangedAt == passwordChangedAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,username,firstName,lastName,email,imageUrl,role,passwordChangedAt,createdAt);
+
+@override
+String toString() {
+  return 'UserDto(username: $username, firstName: $firstName, lastName: $lastName, email: $email, imageUrl: $imageUrl, role: $role, passwordChangedAt: $passwordChangedAt, createdAt: $createdAt)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $UserDtoCopyWith<$Res>  {
+  factory $UserDtoCopyWith(UserDto value, $Res Function(UserDto) _then) = _$UserDtoCopyWithImpl;
+@useResult
+$Res call({
+ String username,@JsonKey(name: "first_name") String firstName,@JsonKey(name: "last_name") String lastName, String email,@JsonKey(name: "image_url") String imageUrl, String role,@JsonKey(name: "password_changed_at") DateTime passwordChangedAt,@JsonKey(name: "created_at") DateTime createdAt
+});
+
+
+
+
+}
+/// @nodoc
+class _$UserDtoCopyWithImpl<$Res>
+    implements $UserDtoCopyWith<$Res> {
+  _$UserDtoCopyWithImpl(this._self, this._then);
+
+  final UserDto _self;
+  final $Res Function(UserDto) _then;
+
+/// Create a copy of UserDto
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? username = null,Object? firstName = null,Object? lastName = null,Object? email = null,Object? imageUrl = null,Object? role = null,Object? passwordChangedAt = null,Object? createdAt = null,}) {
+  return _then(_self.copyWith(
+username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
+as String,firstName: null == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
+as String,lastName: null == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
+as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String,imageUrl: null == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
+as String,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
+as String,passwordChangedAt: null == passwordChangedAt ? _self.passwordChangedAt : passwordChangedAt // ignore: cast_nullable_to_non_nullable
+as DateTime,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [UserDto].
+extension UserDtoPatterns on UserDto {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _UserDto value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _UserDto() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _UserDto value)  $default,){
+final _that = this;
+switch (_that) {
+case _UserDto():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _UserDto value)?  $default,){
+final _that = this;
+switch (_that) {
+case _UserDto() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String username, @JsonKey(name: "first_name")  String firstName, @JsonKey(name: "last_name")  String lastName,  String email, @JsonKey(name: "image_url")  String imageUrl,  String role, @JsonKey(name: "password_changed_at")  DateTime passwordChangedAt, @JsonKey(name: "created_at")  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _UserDto() when $default != null:
+return $default(_that.username,_that.firstName,_that.lastName,_that.email,_that.imageUrl,_that.role,_that.passwordChangedAt,_that.createdAt);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String username, @JsonKey(name: "first_name")  String firstName, @JsonKey(name: "last_name")  String lastName,  String email, @JsonKey(name: "image_url")  String imageUrl,  String role, @JsonKey(name: "password_changed_at")  DateTime passwordChangedAt, @JsonKey(name: "created_at")  DateTime createdAt)  $default,) {final _that = this;
+switch (_that) {
+case _UserDto():
+return $default(_that.username,_that.firstName,_that.lastName,_that.email,_that.imageUrl,_that.role,_that.passwordChangedAt,_that.createdAt);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String username, @JsonKey(name: "first_name")  String firstName, @JsonKey(name: "last_name")  String lastName,  String email, @JsonKey(name: "image_url")  String imageUrl,  String role, @JsonKey(name: "password_changed_at")  DateTime passwordChangedAt, @JsonKey(name: "created_at")  DateTime createdAt)?  $default,) {final _that = this;
+switch (_that) {
+case _UserDto() when $default != null:
+return $default(_that.username,_that.firstName,_that.lastName,_that.email,_that.imageUrl,_that.role,_that.passwordChangedAt,_that.createdAt);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _UserDto implements UserDto {
+  const _UserDto({required this.username, @JsonKey(name: "first_name") required this.firstName, @JsonKey(name: "last_name") required this.lastName, required this.email, @JsonKey(name: "image_url") required this.imageUrl, required this.role, @JsonKey(name: "password_changed_at") required this.passwordChangedAt, @JsonKey(name: "created_at") required this.createdAt});
+  factory _UserDto.fromJson(Map<String, dynamic> json) => _$UserDtoFromJson(json);
+
+@override final  String username;
+@override@JsonKey(name: "first_name") final  String firstName;
+@override@JsonKey(name: "last_name") final  String lastName;
+@override final  String email;
+@override@JsonKey(name: "image_url") final  String imageUrl;
+@override final  String role;
+@override@JsonKey(name: "password_changed_at") final  DateTime passwordChangedAt;
+@override@JsonKey(name: "created_at") final  DateTime createdAt;
+
+/// Create a copy of UserDto
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$UserDtoCopyWith<_UserDto> get copyWith => __$UserDtoCopyWithImpl<_UserDto>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$UserDtoToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserDto&&(identical(other.username, username) || other.username == username)&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.email, email) || other.email == email)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.role, role) || other.role == role)&&(identical(other.passwordChangedAt, passwordChangedAt) || other.passwordChangedAt == passwordChangedAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,username,firstName,lastName,email,imageUrl,role,passwordChangedAt,createdAt);
+
+@override
+String toString() {
+  return 'UserDto(username: $username, firstName: $firstName, lastName: $lastName, email: $email, imageUrl: $imageUrl, role: $role, passwordChangedAt: $passwordChangedAt, createdAt: $createdAt)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$UserDtoCopyWith<$Res> implements $UserDtoCopyWith<$Res> {
+  factory _$UserDtoCopyWith(_UserDto value, $Res Function(_UserDto) _then) = __$UserDtoCopyWithImpl;
+@override @useResult
+$Res call({
+ String username,@JsonKey(name: "first_name") String firstName,@JsonKey(name: "last_name") String lastName, String email,@JsonKey(name: "image_url") String imageUrl, String role,@JsonKey(name: "password_changed_at") DateTime passwordChangedAt,@JsonKey(name: "created_at") DateTime createdAt
+});
+
+
+
+
+}
+/// @nodoc
+class __$UserDtoCopyWithImpl<$Res>
+    implements _$UserDtoCopyWith<$Res> {
+  __$UserDtoCopyWithImpl(this._self, this._then);
+
+  final _UserDto _self;
+  final $Res Function(_UserDto) _then;
+
+/// Create a copy of UserDto
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? username = null,Object? firstName = null,Object? lastName = null,Object? email = null,Object? imageUrl = null,Object? role = null,Object? passwordChangedAt = null,Object? createdAt = null,}) {
+  return _then(_UserDto(
+username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
+as String,firstName: null == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
+as String,lastName: null == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
+as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String,imageUrl: null == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
+as String,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
+as String,passwordChangedAt: null == passwordChangedAt ? _self.passwordChangedAt : passwordChangedAt // ignore: cast_nullable_to_non_nullable
+as DateTime,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime,
+  ));
+}
+
+
 }
 
 // dart format on

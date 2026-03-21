@@ -1,8 +1,8 @@
 import 'package:demo_app/core/router/app_route.dart';
 import 'package:demo_app/core/theme/app_radius.dart';
 import 'package:demo_app/core/theme/app_spacing.dart';
-import 'package:demo_app/features/auth/application/state/google_sign_in_state.dart';
-import 'package:demo_app/features/auth/presentation/provider/google_sign_in_provider.dart';
+import 'package:demo_app/features/auth/application/state/sign_in_state.dart';
+import 'package:demo_app/features/auth/presentation/provider/sign_in_provider.dart';
 import 'package:demo_app/features/auth/presentation/widget/google_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -47,10 +47,10 @@ class _AuthPageState extends ConsumerState<AuthPage> with SingleTickerProviderSt
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-    final googleState = ref.watch(googleSignInProvider);
+    final authState = ref.watch(authProvider);
 
-    ref.listen<GoogleSignInState>(googleSignInProvider, (_, next) {
-      if (next is GoogleSignInAuthenticated) {
+    ref.listen<SignInState>(authProvider, (_, next) {
+      if (next is SignInSuccess) {
         context.goNamed(AppRoute.home.name);
       }
     });
@@ -191,12 +191,12 @@ class _AuthPageState extends ConsumerState<AuthPage> with SingleTickerProviderSt
 
                   // ── Google Button ─────────────────────────────────
                   GoogleButton(
-                    onPressed: (googleState is GoogleSignInLoading || googleState is GoogleSignInInitializing)
+                    onPressed: authState is SignInLoading
                         ? () {}
-                        : () => ref.read(googleSignInProvider.notifier).signIn(),
+                        : () => ref.read(authProvider.notifier).googleSignIn(),
                   ),
 
-                  if (googleState is GoogleSignInError) ...[
+                  if (authState is SignInError) ...[
                     AppSpacing.gap16,
                     Container(
                       padding: const EdgeInsets.all(12),
@@ -210,7 +210,7 @@ class _AuthPageState extends ConsumerState<AuthPage> with SingleTickerProviderSt
                           const SizedBox(width: 8),
                           Expanded(
                             child: Text(
-                              googleState.message,
+                              authState.failure.message,
                               style: textTheme.bodySmall?.copyWith(
                                 color: colorScheme.onErrorContainer,
                               ),
@@ -226,7 +226,7 @@ class _AuthPageState extends ConsumerState<AuthPage> with SingleTickerProviderSt
                   // ── Footer ────────────────────────────────────────
                   Center(
                     child: Text(
-                      'SETUP v1.0.0',
+                      'DEMO v1.0.0',
                       style: textTheme.labelSmall?.copyWith(
                         color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
                         letterSpacing: 1,

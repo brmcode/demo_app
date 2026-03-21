@@ -1,10 +1,10 @@
 import 'package:demo_app/core/router/app_route.dart';
 import 'package:demo_app/core/theme/app_spacing.dart';
-import 'package:demo_app/features/auth/application/state/google_sign_in_state.dart';
-import 'package:demo_app/features/auth/presentation/provider/google_sign_in_provider.dart';
+import 'package:demo_app/features/auth/application/state/sign_in_state.dart';
+import 'package:demo_app/features/auth/domain/entity/user.dart';
+import 'package:demo_app/features/auth/presentation/provider/sign_in_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:go_router/go_router.dart';
 
 class HomePage extends ConsumerWidget {
@@ -13,18 +13,18 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final googleState = ref.watch(googleSignInProvider);
+    final authState = ref.watch(authProvider);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
-          if (googleState is GoogleSignInAuthenticated) ...[
+          if (authState is SignInSuccess) ...[
             IconButton(
               onPressed: () async {
                 context.goNamed(AppRoute.auth.name);
-                await ref.read(googleSignInProvider.notifier).signOut();
+                await ref.read(authProvider.notifier).signOut();
               },
               icon: const Icon(Icons.logout_rounded),
             ),
@@ -34,8 +34,8 @@ class HomePage extends ConsumerWidget {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 32),
-          child: googleState is GoogleSignInAuthenticated
-              ? _ProfileView(user: googleState.user)
+          child: authState is SignInSuccess
+              ? _ProfileView(user: authState.user)
               : _NotSignedInView(onSignIn: () => context.goNamed(AppRoute.auth.name)),
         ),
       ),
@@ -46,7 +46,7 @@ class HomePage extends ConsumerWidget {
 class _ProfileView extends StatelessWidget {
   const _ProfileView({required this.user});
 
-  final GoogleSignInAccount user;
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -58,10 +58,10 @@ class _ProfileView extends StatelessWidget {
         CircleAvatar(
           radius: 42,
           backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.15),
-          backgroundImage: user.photoUrl != null ? NetworkImage(user.photoUrl!) : null,
-          child: user.photoUrl == null
+          backgroundImage: user.imageUrl.isNotEmpty ? NetworkImage(user.imageUrl) : null,
+          child: user.imageUrl.isEmpty
               ? Text(
-                  (user.displayName ?? user.email)[0].toUpperCase(),
+                  user.displayName.toUpperCase(),
                   style: theme.textTheme.headlineLarge?.copyWith(
                     color: theme.colorScheme.primary,
                     fontWeight: FontWeight.bold,
@@ -72,7 +72,7 @@ class _ProfileView extends StatelessWidget {
 
         AppSpacing.gap24,
         Text(
-          user.displayName ?? user.email,
+          user.displayName,
           textAlign: TextAlign.center,
           style: theme.textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w700),
         ),
@@ -81,11 +81,6 @@ class _ProfileView extends StatelessWidget {
           user.email,
           textAlign: TextAlign.center,
           style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onSurfaceVariant),
-        ),
-        Text(
-          'ID: ${user.id}',
-          textAlign: TextAlign.center,
-          style: theme.textTheme.bodyMedium,
         ),
         AppSpacing.gap24,
         FilledButton(

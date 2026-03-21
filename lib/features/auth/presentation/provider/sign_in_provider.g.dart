@@ -9,28 +9,28 @@ part of 'sign_in_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(SignInNotifier)
-final signInProvider = SignInNotifierProvider._();
+@ProviderFor(AuthNotifier)
+final authProvider = AuthNotifierProvider._();
 
-final class SignInNotifierProvider
-    extends $NotifierProvider<SignInNotifier, SignInState> {
-  SignInNotifierProvider._()
+final class AuthNotifierProvider
+    extends $NotifierProvider<AuthNotifier, SignInState> {
+  AuthNotifierProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'signInProvider',
-        isAutoDispose: true,
+        name: r'authProvider',
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$signInNotifierHash();
+  String debugGetCreateSourceHash() => _$authNotifierHash();
 
   @$internal
   @override
-  SignInNotifier create() => SignInNotifier();
+  AuthNotifier create() => AuthNotifier();
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(SignInState value) {
@@ -41,9 +41,9 @@ final class SignInNotifierProvider
   }
 }
 
-String _$signInNotifierHash() => r'60dd06f1ef928269e6d2a8a0a4a81deb5e7332ef';
+String _$authNotifierHash() => r'da73f5b785e11579b7be7f9b539c17906eadc9e1';
 
-abstract class _$SignInNotifier extends $Notifier<SignInState> {
+abstract class _$AuthNotifier extends $Notifier<SignInState> {
   SignInState build();
   @$mustCallSuper
   @override

@@ -34,10 +34,10 @@ class _SignInPageState extends ConsumerState<SignInPage> {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-    final state = ref.watch(signInProvider);
+    final state = ref.watch(authProvider);
 
     // listen — navigate เมื่อ sign in สำเร็จ
-    ref.listen(signInProvider, (_, next) {
+    ref.listen(authProvider, (_, next) {
       if (next is SignInSuccess) {
         context.goNamed(AppRoute.home.name);
       }
@@ -211,7 +211,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
 
     // ผ่าน Form แล้ว → call notifier → validate อีกครั้ง → call usecase
     ref
-        .read(signInProvider.notifier)
+        .read(authProvider.notifier)
         .signIn(
           email: _emailCtrl.text,
           password: _passwordCtrl.text,
