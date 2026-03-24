@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 
-/// Typography scale — import Google Fonts or use system font.
-/// Add `google_fonts` to pubspec.yaml if you want custom font.
 abstract final class AppTypography {
   AppTypography._();
 
-  // If using Google Fonts:
-  // static String get _font => GoogleFonts.inter().fontFamily!;
-  static const String _font = 'NotoSansThai'; // replace with your font
+  static const String _font = 'NotoSansThai';
 
   static TextTheme get textTheme => const TextTheme(
     // Display

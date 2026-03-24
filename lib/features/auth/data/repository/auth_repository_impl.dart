@@ -42,7 +42,7 @@ class _AuthRepository implements AuthRepository {
       if (response.errors != null && response.errors!.isNotEmpty) {
         return Error(ServerFailure(response.errors!.join(', ')));
       }
-      return Success(AuthMapper.fromDto(response.data!));
+      return Success(AuthMapper.fromUserDto(response.data!));
     } on DioException catch (e) {
       return Error(_mapDioError(e));
     } catch (_) {
@@ -101,7 +101,7 @@ class _AuthRepository implements AuthRepository {
       if (response.errors != null && response.errors!.isNotEmpty) {
         return Error(ServerFailure(response.errors!.join(', ')));
       }
-      return Success(AuthMapper.fromDto(response.data!));
+      return Success(AuthMapper.fromUserDto(response.data!));
     } on DioException catch (e) {
       return Error(_mapDioError(e));
     } catch (_) {

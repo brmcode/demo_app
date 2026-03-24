@@ -1,4 +1,3 @@
-// lib/common/widgets/error_view.dart
 import 'package:flutter/material.dart';
 import '../exception/failure.dart';
 

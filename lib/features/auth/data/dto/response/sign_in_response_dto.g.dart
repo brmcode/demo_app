@@ -13,6 +13,7 @@ _SignInResult<T> _$SignInResultFromJson<T>(
   success: json['success'] as bool,
   statusCode: (json['status_code'] as num).toInt(),
   message: json['message'] as String,
+  newUser: json['new_user'] as bool?,
   data: _$nullableGenericFromJson(json['data'], fromJsonT),
   errors: (json['errors'] as List<dynamic>?)?.map((e) => e as String).toList(),
 );
@@ -24,6 +25,7 @@ Map<String, dynamic> _$SignInResultToJson<T>(
   'success': instance.success,
   'status_code': instance.statusCode,
   'message': instance.message,
+  'new_user': instance.newUser,
   'data': _$nullableGenericToJson(instance.data, toJsonT),
   'errors': instance.errors,
 };
@@ -69,7 +71,9 @@ _UserDto _$UserDtoFromJson(Map<String, dynamic> json) => _UserDto(
   lastName: json['last_name'] as String,
   email: json['email'] as String,
   imageUrl: json['image_url'] as String,
-  role: json['role'] as String,
+  roles: (json['roles'] as List<dynamic>)
+      .map((e) => RoleDto.fromJson(e as Map<String, dynamic>))
+      .toList(),
   passwordChangedAt: DateTime.parse(json['password_changed_at'] as String),
   createdAt: DateTime.parse(json['created_at'] as String),
 );
@@ -80,7 +84,21 @@ Map<String, dynamic> _$UserDtoToJson(_UserDto instance) => <String, dynamic>{
   'last_name': instance.lastName,
   'email': instance.email,
   'image_url': instance.imageUrl,
-  'role': instance.role,
+  'roles': instance.roles,
   'password_changed_at': instance.passwordChangedAt.toIso8601String(),
+  'created_at': instance.createdAt.toIso8601String(),
+};
+
+_RoleDto _$RoleDtoFromJson(Map<String, dynamic> json) => _RoleDto(
+  code: json['code'] as String,
+  name: json['name'] as String,
+  description: json['description'] as String,
+  createdAt: DateTime.parse(json['created_at'] as String),
+);
+
+Map<String, dynamic> _$RoleDtoToJson(_RoleDto instance) => <String, dynamic>{
+  'code': instance.code,
+  'name': instance.name,
+  'description': instance.description,
   'created_at': instance.createdAt.toIso8601String(),
 };

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:demo_app/common/exception/failure.dart';
 import 'package:demo_app/core/data/local/secure_storage/secure_storage_const.dart';
 import 'package:demo_app/core/data/local/secure_storage/secure_storage_provider.dart';
@@ -10,7 +11,6 @@ import 'package:demo_app/features/auth/domain/usecase/auth_use_case_provider.dar
 import 'package:demo_app/features/auth/domain/usecase/google_sign_in_use_case.dart';
 import 'package:demo_app/features/auth/domain/usecase/sign_in_use_case.dart';
 import 'package:demo_app/features/auth/domain/usecase/sign_out_use_case.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'sign_in_provider.g.dart';
 
@@ -20,8 +20,6 @@ class AuthNotifier extends _$AuthNotifier {
 
   @override
   SignInState build() => const SignInInitial();
-
-  // ── Email/Password Sign-In ────────────────────────────────────────────────
 
   Future<void> signIn({
     required String email,
@@ -54,8 +52,6 @@ class AuthNotifier extends _$AuthNotifier {
     result.whenError((failure) => state = SignInError(failure));
   }
 
-  // ── Google Sign-In ────────────────────────────────────────────────────────
-
   Future<void> googleSignIn() async {
     state = const SignInLoading();
 
@@ -83,13 +79,10 @@ class AuthNotifier extends _$AuthNotifier {
     }
   }
 
-  // ── Sign-Out ──────────────────────────────────────────────────────────────
-
   Future<void> signOut() async {
     final secureStorage = ref.read(secureStorageProvider);
     final currentState = state;
 
-    // We try to grab the refresh token from state, otherwise fallback to storage
     String? token;
     if (currentState is SignInSuccess) {
       token = currentState.user.refreshToken;
@@ -110,7 +103,6 @@ class AuthNotifier extends _$AuthNotifier {
       });
     }
 
-    // Always clear local storage & google state
     await _googleService.signOut();
     await secureStorage.delete(accessTokenKey);
     await secureStorage.delete(refreshTokenKey);
@@ -118,8 +110,6 @@ class AuthNotifier extends _$AuthNotifier {
     log('[AuthNotifier] Local Sign-out successful');
     state = const SignInInitial();
   }
-
-  // ── Utilities ─────────────────────────────────────────────────────────────
 
   Future<void> _saveTokens(String accessToken, String refreshToken) async {
     final secureStorage = ref.read(secureStorageProvider);

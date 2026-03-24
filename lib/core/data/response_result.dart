@@ -13,7 +13,6 @@ abstract class ResponseResult<T> with _$ResponseResult<T> {
     List<String>? errors,
   }) = _ResponseResult<T>;
 
-  // ✅ รับ fromJsonT function เพื่อบอกว่า T deserialize ยังไง
   factory ResponseResult.fromJson(
     Map<String, dynamic> json,
     T Function(Object? json) fromJsonT,

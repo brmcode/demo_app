@@ -1,9 +1,11 @@
+import 'package:demo_app/features/auth/domain/entity/role.dart';
+
 class User {
   final String username;
   final String firstName;
   final String lastName;
   final String email;
-  final String role;
+  final List<Role> roles;
   final String imageUrl;
   final String sessionId;
   final String accessToken;
@@ -16,7 +18,7 @@ class User {
     required this.firstName,
     required this.lastName,
     required this.email,
-    required this.role,
+    required this.roles,
     required this.imageUrl,
     required this.sessionId,
     required this.accessToken,
@@ -25,9 +27,11 @@ class User {
     required this.refreshTokenExpiresAt,
   });
 
-  // Domain computed properties
   String get fullName => '$firstName $lastName'.trim();
   String get displayName => fullName.isNotEmpty ? fullName : username;
-  bool get isAdmin => role == 'ADMIN';
+
+  bool hasRole(String roleCode) => roles.any((role) => role.code == roleCode);
+  bool get isAdmin => hasRole('ADMIN');
   bool get isAccessTokenExpired => DateTime.now().isAfter(accessTokenExpiresAt);
+  String get primaryRole => roles.isNotEmpty ? roles.first.code : 'USER';
 }

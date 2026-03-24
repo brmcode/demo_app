@@ -9,8 +9,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'dio_provider.g.dart';
 
-// @Riverpod(keepAlive: true) — ปิด autoDispose
-// เพราะ Dio ควรอยู่ตลอด app lifecycle ไม่ควรถูก dispose
 @Riverpod(keepAlive: true)
 Dio dio(Ref ref) {
   final dio = Dio(

@@ -1,13 +1,13 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:demo_app/core/router/app_route.dart';
 import 'package:demo_app/core/theme/app_radius.dart';
 import 'package:demo_app/core/theme/app_spacing.dart';
 import 'package:demo_app/features/auth/application/state/sign_in_state.dart';
 import 'package:demo_app/features/auth/presentation/provider/sign_in_provider.dart';
 import 'package:demo_app/features/auth/presentation/widget/google_button.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 
 class AuthPage extends ConsumerStatefulWidget {
   const AuthPage({super.key});
@@ -68,7 +68,6 @@ class _AuthPageState extends ConsumerState<AuthPage> with SingleTickerProviderSt
                 children: [
                   const Spacer(flex: 2),
 
-                  // ── Logo / Badge ─────────────────────────────────
                   Center(
                     child: Container(
                       width: 72,
@@ -91,7 +90,6 @@ class _AuthPageState extends ConsumerState<AuthPage> with SingleTickerProviderSt
 
                   AppSpacing.gap24,
 
-                  // ── Title ────────────────────────────────────────
                   Center(
                     child: Text(
                       'DEMO',
@@ -127,7 +125,6 @@ class _AuthPageState extends ConsumerState<AuthPage> with SingleTickerProviderSt
 
                   AppSpacing.gap16,
 
-                  // ── Subtitle ─────────────────────────────────────
                   Center(
                     child: Text(
                       'Build your next Flutter project with clean architecture and best practices.',
@@ -141,7 +138,6 @@ class _AuthPageState extends ConsumerState<AuthPage> with SingleTickerProviderSt
 
                   const Spacer(flex: 2),
 
-                  // ── Register Button ───────────────────────────────
                   SizedBox(
                     height: 48,
                     child: ElevatedButton(
@@ -159,7 +155,6 @@ class _AuthPageState extends ConsumerState<AuthPage> with SingleTickerProviderSt
 
                   AppSpacing.gap16,
 
-                  // ── Login Button ──────────────────────────────────
                   SizedBox(
                     height: 48,
                     child: OutlinedButton(
@@ -170,7 +165,6 @@ class _AuthPageState extends ConsumerState<AuthPage> with SingleTickerProviderSt
 
                   AppSpacing.gap32,
 
-                  // ── Divider ───────────────────────────────────────
                   Row(
                     children: [
                       const Expanded(child: Divider()),
@@ -189,11 +183,8 @@ class _AuthPageState extends ConsumerState<AuthPage> with SingleTickerProviderSt
 
                   AppSpacing.gap16,
 
-                  // ── Google Button ─────────────────────────────────
                   GoogleButton(
-                    onPressed: authState is SignInLoading
-                        ? () {}
-                        : () => ref.read(authProvider.notifier).googleSignIn(),
+                    onPressed: authState is SignInLoading ? () {} : () => ref.read(authProvider.notifier).googleSignIn(),
                   ),
 
                   if (authState is SignInError) ...[
@@ -223,7 +214,6 @@ class _AuthPageState extends ConsumerState<AuthPage> with SingleTickerProviderSt
 
                   const Spacer(flex: 1),
 
-                  // ── Footer ────────────────────────────────────────
                   Center(
                     child: Text(
                       'DEMO v1.0.0',

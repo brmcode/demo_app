@@ -20,7 +20,6 @@ class GoogleButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Google "G" icon (manual paint — no asset needed)
             SvgPicture.asset(
               'assets/icons/google_G_logo.svg',
               width: 20,

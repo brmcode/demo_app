@@ -9,7 +9,8 @@ abstract class SignInResult<T> with _$SignInResult<T> {
     required bool success,
     @JsonKey(name: 'status_code') required int statusCode,
     required String message,
-    T? data,
+    @JsonKey(name: 'new_user') bool? newUser,
+    @JsonKey(name: 'data') T? data,
     List<String>? errors,
   }) = _SignInResult<T>;
 
@@ -41,10 +42,22 @@ abstract class UserDto with _$UserDto {
     @JsonKey(name: "last_name") required String lastName,
     required String email,
     @JsonKey(name: "image_url") required String imageUrl,
-    required String role,
+    required List<RoleDto> roles,
     @JsonKey(name: "password_changed_at") required DateTime passwordChangedAt,
     @JsonKey(name: "created_at") required DateTime createdAt,
   }) = _UserDto;
 
   factory UserDto.fromJson(Map<String, dynamic> json) => _$UserDtoFromJson(json);
+}
+
+@freezed
+abstract class RoleDto with _$RoleDto {
+  const factory RoleDto({
+    required String code,
+    required String name,
+    required String description,
+    @JsonKey(name: "created_at") required DateTime createdAt,
+  }) = _RoleDto;
+
+  factory RoleDto.fromJson(Map<String, dynamic> json) => _$RoleDtoFromJson(json);
 }

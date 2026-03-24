@@ -12,7 +12,7 @@ final class SignInParams {
   const SignInParams({
     required this.email,
     required this.password,
-    this.role = 'USER', // default USER ตาม API
+    this.role = 'USER',
   });
 }
 

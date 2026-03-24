@@ -1,14 +1,13 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:demo_app/common/widgets/app_text_form_field.dart';
 import 'package:demo_app/core/router/app_route.dart';
 import 'package:demo_app/features/auth/application/state/sign_in_state.dart';
 import 'package:demo_app/features/auth/application/validator/auth_validator.dart';
 import 'package:demo_app/features/auth/presentation/provider/sign_in_provider.dart';
-import 'package:flutter/material.dart';
-
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 class SignInPage extends ConsumerStatefulWidget {
   const SignInPage({super.key});
@@ -36,7 +35,6 @@ class _SignInPageState extends ConsumerState<SignInPage> {
     final textTheme = Theme.of(context).textTheme;
     final state = ref.watch(authProvider);
 
-    // listen — navigate เมื่อ sign in สำเร็จ
     ref.listen(authProvider, (_, next) {
       if (next is SignInSuccess) {
         context.goNamed(AppRoute.home.name);
@@ -44,7 +42,6 @@ class _SignInPageState extends ConsumerState<SignInPage> {
     });
 
     final isLoading = state is SignInLoading;
-
     return Scaffold(
       appBar: AppBar(title: const Text('Sign In')),
       body: SingleChildScrollView(
@@ -56,7 +53,6 @@ class _SignInPageState extends ConsumerState<SignInPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // ---- Header ----
                 Text(
                   'Welcome Back',
                   style: textTheme.headlineMedium?.copyWith(
@@ -71,22 +67,17 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                   ),
                 ),
                 const SizedBox(height: 48),
-
-                // ---- Email ----
                 AppTextFormField(
                   controller: _emailCtrl,
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
-                  // validator= ใช้ Flutter Form built-in
-                  // AuthValidator.emailValidator คือ String? Function(String?)
+
                   validator: AuthValidator.emailValidator,
                   label: 'Email',
                   hint: 'Enter your email address',
                   prefixIcon: const Icon(Icons.mail_outline_rounded),
                 ),
                 const SizedBox(height: 16),
-
-                // ---- Password ----
                 AppTextFormField(
                   controller: _passwordCtrl,
                   obscureText: _obscurePassword,
@@ -104,7 +95,6 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                 ),
                 const SizedBox(height: 8),
 
-                // ---- Forgot Password ----
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
@@ -119,8 +109,6 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                   ),
                 ),
                 const SizedBox(height: 16),
-
-                // ---- Server Error (ถ้ามี) ----
                 if (state is SignInError) ...[
                   Container(
                     padding: const EdgeInsets.all(12),
@@ -145,8 +133,6 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                   ),
                   const SizedBox(height: 16),
                 ],
-
-                // ---- Submit Button ----
                 SizedBox(
                   width: double.infinity,
                   height: 48,
@@ -167,13 +153,11 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                   ),
                 ),
 
-                // ---- Divider ----
                 Padding(
                   padding: const EdgeInsets.all(24),
                   child: Divider(color: colorScheme.onSurfaceVariant),
                 ),
 
-                // ---- Sign Up Link ----
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -204,12 +188,9 @@ class _SignInPageState extends ConsumerState<SignInPage> {
   }
 
   void _onSubmit() {
-    // Flutter Form validate — trigger validator= ของทุก field
-    // แสดง inline error ใต้แต่ละ TextFormField อัตโนมัติ
     log('Submit form with email=${_emailCtrl.text} and password=${_passwordCtrl.text}');
     if (!_formKey.currentState!.validate()) return;
 
-    // ผ่าน Form แล้ว → call notifier → validate อีกครั้ง → call usecase
     ref
         .read(authProvider.notifier)
         .signIn(

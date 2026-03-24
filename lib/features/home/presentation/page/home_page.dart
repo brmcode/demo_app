@@ -20,7 +20,7 @@ class HomePage extends ConsumerWidget {
         title: Text(title),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
-          if (authState is SignInSuccess) ...[
+          if (authState is SignInSuccess)
             IconButton(
               onPressed: () async {
                 context.goNamed(AppRoute.auth.name);
@@ -28,7 +28,6 @@ class HomePage extends ConsumerWidget {
               },
               icon: const Icon(Icons.logout_rounded),
             ),
-          ],
         ],
       ),
       body: Center(
@@ -36,7 +35,9 @@ class HomePage extends ConsumerWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 32),
           child: authState is SignInSuccess
               ? _ProfileView(user: authState.user)
-              : _NotSignedInView(onSignIn: () => context.goNamed(AppRoute.auth.name)),
+              : _NotSignedInView(
+                  onSignIn: () => context.goNamed(AppRoute.auth.name),
+                ),
         ),
       ),
     );
@@ -45,7 +46,6 @@ class HomePage extends ConsumerWidget {
 
 class _ProfileView extends StatelessWidget {
   const _ProfileView({required this.user});
-
   final User user;
 
   @override
@@ -61,7 +61,7 @@ class _ProfileView extends StatelessWidget {
           backgroundImage: user.imageUrl.isNotEmpty ? NetworkImage(user.imageUrl) : null,
           child: user.imageUrl.isEmpty
               ? Text(
-                  user.displayName.toUpperCase(),
+                  user.displayName.substring(0, 1).toUpperCase(),
                   style: theme.textTheme.headlineLarge?.copyWith(
                     color: theme.colorScheme.primary,
                     fontWeight: FontWeight.bold,
@@ -69,7 +69,6 @@ class _ProfileView extends StatelessWidget {
                 )
               : null,
         ),
-
         AppSpacing.gap24,
         Text(
           user.displayName,
@@ -82,11 +81,32 @@ class _ProfileView extends StatelessWidget {
           textAlign: TextAlign.center,
           style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onSurfaceVariant),
         ),
+        AppSpacing.gap16,
+        Wrap(
+          spacing: 8,
+          runSpacing: 4,
+          alignment: WrapAlignment.center,
+          children: user.roles.map((role) {
+            final isAdmin = role.code == 'ADMIN';
+            return Chip(
+              label: Text(
+                role.code,
+                style: theme.textTheme.labelSmall?.copyWith(
+                  color: isAdmin ? theme.colorScheme.onErrorContainer : theme.colorScheme.onPrimaryContainer,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 0.5,
+                ),
+              ),
+              backgroundColor: isAdmin ? theme.colorScheme.errorContainer : theme.colorScheme.primaryContainer,
+              side: BorderSide.none,
+              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 0),
+              visualDensity: VisualDensity.compact,
+            );
+          }).toList(),
+        ),
         AppSpacing.gap24,
         FilledButton(
-          onPressed: () {
-            context.goNamed(AppRoute.auth.name);
-          },
+          onPressed: () => context.goNamed(AppRoute.auth.name),
           child: const Text('Manage account'),
         ),
       ],
@@ -96,7 +116,6 @@ class _ProfileView extends StatelessWidget {
 
 class _NotSignedInView extends StatelessWidget {
   const _NotSignedInView({required this.onSignIn});
-
   final VoidCallback onSignIn;
 
   @override
@@ -115,7 +134,7 @@ class _NotSignedInView extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Text(
-          'Tap below to sign in with Google.',
+          'Tap below to sign in.',
           style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onSurfaceVariant),
           textAlign: TextAlign.center,
         ),
