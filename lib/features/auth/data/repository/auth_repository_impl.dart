@@ -1,4 +1,5 @@
 import 'package:demo_app/common/exception/failure.dart';
+import 'package:demo_app/core/data/remote/dio_error_mapper.dart';
 import 'package:demo_app/core/data/remote/dio_provider.dart';
 import 'package:demo_app/features/auth/data/dto/request/google_sign_in_request_dto.dart';
 import 'package:demo_app/features/auth/data/dto/request/refresh_token_request_dto.dart';
@@ -44,7 +45,7 @@ class _AuthRepository implements AuthRepository {
       }
       return Success(AuthMapper.fromUserDto(response.data!));
     } on DioException catch (e) {
-      return Error(_mapDioError(e));
+      return Error(mapDioError(e));
     } catch (_) {
       return const Error(UnknownFailure());
     }
@@ -59,7 +60,7 @@ class _AuthRepository implements AuthRepository {
       }
       return const Success(null);
     } on DioException catch (e) {
-      return Error(_mapDioError(e));
+      return Error(mapDioError(e));
     } catch (_) {
       return const Error(UnknownFailure());
     }
@@ -78,18 +79,6 @@ class _AuthRepository implements AuthRepository {
   //   return Success(mapper(response.data));
   // }
 
-  Failure _mapDioError(DioException e) => switch (e.type) {
-    DioExceptionType.connectionTimeout ||
-    DioExceptionType.receiveTimeout ||
-    DioExceptionType.sendTimeout => const NetworkFailure('Request timed out'),
-    DioExceptionType.connectionError => const NetworkFailure('No internet connection'),
-    DioExceptionType.badResponse => ServerFailure(
-      e.response?.data!['message'] ?? 'Server error',
-      statusCode: e.response?.statusCode,
-    ),
-    _ => const UnknownFailure(),
-  };
-
   @override
   Future<Result<User, Failure>> googleSignIn({required String idToken}) async {
     try {
@@ -103,7 +92,7 @@ class _AuthRepository implements AuthRepository {
       }
       return Success(AuthMapper.fromUserDto(response.data!));
     } on DioException catch (e) {
-      return Error(_mapDioError(e));
+      return Error(mapDioError(e));
     } catch (_) {
       return const Error(UnknownFailure());
     }

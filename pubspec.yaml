@@ -28,6 +28,11 @@ dependencies:
   multiple_result: ^5.1.0
   gap: ^3.0.1
   window_manager: ^0.5.1
+  flutter_image_compress: ^2.4.0
+  image_picker: ^1.2.1
+  image_cropper: ^12.1.0
+  path_provider: ^2.1.5
+  cached_network_image: ^3.4.1
 
 dev_dependencies:
   flutter_test:
