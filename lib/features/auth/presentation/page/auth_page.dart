@@ -67,7 +67,6 @@ class _AuthPageState extends ConsumerState<AuthPage> with SingleTickerProviderSt
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const Spacer(flex: 2),
-
                   Center(
                     child: Container(
                       width: 72,
@@ -100,9 +99,7 @@ class _AuthPageState extends ConsumerState<AuthPage> with SingleTickerProviderSt
                       ),
                     ),
                   ),
-
                   AppSpacing.gap4,
-
                   Center(
                     child: Container(
                       padding: const EdgeInsets.symmetric(
@@ -122,9 +119,7 @@ class _AuthPageState extends ConsumerState<AuthPage> with SingleTickerProviderSt
                       ),
                     ),
                   ),
-
                   AppSpacing.gap16,
-
                   Center(
                     child: Text(
                       'Build your next Flutter project with clean architecture and best practices.',
@@ -135,9 +130,7 @@ class _AuthPageState extends ConsumerState<AuthPage> with SingleTickerProviderSt
                       ),
                     ),
                   ),
-
                   const Spacer(flex: 2),
-
                   SizedBox(
                     height: 48,
                     child: ElevatedButton(
@@ -152,9 +145,7 @@ class _AuthPageState extends ConsumerState<AuthPage> with SingleTickerProviderSt
                       ),
                     ),
                   ),
-
                   AppSpacing.gap16,
-
                   SizedBox(
                     height: 48,
                     child: OutlinedButton(
@@ -162,9 +153,7 @@ class _AuthPageState extends ConsumerState<AuthPage> with SingleTickerProviderSt
                       child: const Text('Sign In'),
                     ),
                   ),
-
                   AppSpacing.gap32,
-
                   Row(
                     children: [
                       const Expanded(child: Divider()),
@@ -180,13 +169,10 @@ class _AuthPageState extends ConsumerState<AuthPage> with SingleTickerProviderSt
                       const Expanded(child: Divider()),
                     ],
                   ),
-
                   AppSpacing.gap16,
-
                   GoogleButton(
                     onPressed: authState is SignInLoading ? () {} : () => ref.read(authProvider.notifier).googleSignIn(),
                   ),
-
                   if (authState is SignInError) ...[
                     AppSpacing.gap16,
                     Container(
@@ -211,9 +197,7 @@ class _AuthPageState extends ConsumerState<AuthPage> with SingleTickerProviderSt
                       ),
                     ),
                   ],
-
                   const Spacer(flex: 1),
-
                   Center(
                     child: Text(
                       'DEMO v1.0.0',
@@ -223,7 +207,6 @@ class _AuthPageState extends ConsumerState<AuthPage> with SingleTickerProviderSt
                       ),
                     ),
                   ),
-
                   AppSpacing.gap8,
                 ],
               ),
