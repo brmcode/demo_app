@@ -20,7 +20,7 @@ class _MediaApi implements MediaApi {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<HttpResponse<List<int>>> getImage(String fileName) async {
+  Future<HttpResponse<List<int>>> getAvatar(String fileName) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -34,7 +34,7 @@ class _MediaApi implements MediaApi {
           )
           .compose(
             _dio.options,
-            '/api/media/image/${fileName}',
+            '/cdn/avatars/${fileName}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -53,7 +53,7 @@ class _MediaApi implements MediaApi {
   }
 
   @override
-  Future<HttpResponse<ResponseResult<String?>>> uploadImage(
+  Future<HttpResponse<ResponseResult<String?>>> uploadAvatar(
     MultipartFile file,
   ) async {
     final _extra = <String, dynamic>{};
@@ -70,7 +70,7 @@ class _MediaApi implements MediaApi {
           )
           .compose(
             _dio.options,
-            '/api/media/upload',
+            '/api/uploads/avatar',
             queryParameters: queryParameters,
             data: _data,
           )

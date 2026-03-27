@@ -1,3 +1,4 @@
+import 'package:demo_app/config/dev.dart';
 import 'package:demo_app/features/auth/data/remote/auth_api.dart';
 import 'package:demo_app/core/data/local/secure_storage/secure_storage_provider.dart';
 import 'package:demo_app/core/data/remote/auth_interceptor.dart';
@@ -13,7 +14,7 @@ part 'dio_provider.g.dart';
 Dio dio(Ref ref) {
   final dio = Dio(
     BaseOptions(
-      baseUrl: 'http://10.12.83.16:8080',
+      baseUrl: Config.baseUrl,
       connectTimeout: const Duration(seconds: 10),
       receiveTimeout: const Duration(seconds: 10),
       headers: {'Content-Type': 'application/json'},

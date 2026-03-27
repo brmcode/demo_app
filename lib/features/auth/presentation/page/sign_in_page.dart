@@ -86,6 +86,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                   validator: AuthValidator.passwordValidator,
                   label: 'Password',
                   hint: 'Minimum 6 chars',
+                  onFieldSubmitted: (_) => _onSubmit(),
                   prefixIcon: const Icon(Icons.lock_outline_rounded),
                   suffixIcon: IconButton(
                     icon: Icon(

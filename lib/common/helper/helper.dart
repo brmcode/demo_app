@@ -1,11 +1,7 @@
 String getInitials(String name) {
   if (name.trim().isEmpty) return '?';
 
-  final parts = name
-      .trim()
-      .split(RegExp(r'\s+')) // handles multiple spaces
-      .where((e) => e.isNotEmpty)
-      .toList();
+  final parts = name.trim().split(RegExp(r'\s+')).where((e) => e.isNotEmpty).toList();
 
   if (parts.isEmpty) return '?';
 

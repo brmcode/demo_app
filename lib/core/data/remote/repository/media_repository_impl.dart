@@ -20,9 +20,9 @@ class _MediaRepository implements MediaRepository {
   const _MediaRepository(this._api);
 
   @override
-  Future<Result<List<int>, Failure>> getImage({required String fileName}) async {
+  Future<Result<List<int>, Failure>> getAvatar({required String fileName}) async {
     try {
-      final response = await _api.getImage(fileName);
+      final response = await _api.getAvatar(fileName);
       return Success(response.data);
     } on DioException catch (e) {
       return Error(mapDioError(e));
@@ -32,9 +32,9 @@ class _MediaRepository implements MediaRepository {
   }
 
   @override
-  Future<Result<String?, Failure>> uploadImage({required MultipartFile file}) async {
+  Future<Result<String?, Failure>> uploadAvatar({required MultipartFile file}) async {
     try {
-      final response = await _api.uploadImage(file);
+      final response = await _api.uploadAvatar(file);
       return Success(response.data.data);
     } on DioException catch (e) {
       return Error(mapDioError(e));

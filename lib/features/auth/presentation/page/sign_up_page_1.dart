@@ -35,10 +35,15 @@ class _SignUpPage1State extends ConsumerState<SignUpPage1> {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
+    FocusScopeNode currentFocus = FocusScope.of(context);
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
       child: Scaffold(
         appBar: AppBar(centerTitle: true, title: const AppBarTitle(title: 'DEMO')),
         body: SingleChildScrollView(
@@ -75,7 +80,7 @@ class _SignUpPage1State extends ConsumerState<SignUpPage1> {
                     validator: SignUpValidator.lastNameValidator,
                     label: 'Last Name',
                     hint: 'Enter your last name',
-                    onFieldSubmitted: (_) => _handleNext(context),
+                    onFieldSubmitted: (_) => _handleNext(context, currentFocus),
                   ),
                 ],
               ),
@@ -88,7 +93,7 @@ class _SignUpPage1State extends ConsumerState<SignUpPage1> {
             width: double.infinity,
             height: 48,
             child: ElevatedButton(
-              onPressed: () => _handleNext(context),
+              onPressed: () => _handleNext(context, currentFocus),
               child: Text(
                 'Next',
                 style: textTheme.titleMedium?.copyWith(
@@ -102,8 +107,10 @@ class _SignUpPage1State extends ConsumerState<SignUpPage1> {
     );
   }
 
-  void _handleNext(BuildContext context) {
-    FocusScope.of(context).unfocus();
+  void _handleNext(BuildContext context, FocusScopeNode currentFocus) {
+    if (!currentFocus.hasPrimaryFocus) {
+      currentFocus.unfocus();
+    }
     if (_formKey.currentState!.validate()) {
       ref
           .read(signUpProvider.notifier)

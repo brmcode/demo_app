@@ -1,7 +1,7 @@
 import 'package:demo_app/core/router/app_route.dart';
 import 'package:demo_app/core/theme/app_spacing.dart';
 import 'package:demo_app/features/auth/application/state/sign_in_state.dart';
-import 'package:demo_app/features/auth/domain/entity/user.dart';
+import 'package:demo_app/features/auth/domain/entity/sign_in_response.dart';
 import 'package:demo_app/features/auth/presentation/provider/sign_in_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -46,7 +46,7 @@ class HomePage extends ConsumerWidget {
 
 class _ProfileView extends StatelessWidget {
   const _ProfileView({required this.user});
-  final User user;
+  final SignInResponse user;
 
   @override
   Widget build(BuildContext context) {

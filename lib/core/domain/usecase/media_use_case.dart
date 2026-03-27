@@ -22,7 +22,7 @@ class GetImageUseCase implements UseCase<GetImageParams, List<int>> {
 
   @override
   Future<Result<List<int>, Failure>> call(GetImageParams params) {
-    return _repository.getImage(
+    return _repository.getAvatar(
       fileName: params.fileName,
     );
   }
@@ -45,6 +45,6 @@ class UploadImageUseCase implements UseCase<UploadImageParams, String?> {
   @override
   Future<Result<String?, Failure>> call(UploadImageParams params) async {
     final file = await MultipartFile.fromFile(params.file.path);
-    return _repository.uploadImage(file: file);
+    return _repository.uploadAvatar(file: file);
   }
 }

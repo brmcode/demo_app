@@ -4,8 +4,10 @@ import 'package:demo_app/core/data/remote/dio_provider.dart';
 import 'package:demo_app/features/auth/data/dto/request/google_sign_in_request_dto.dart';
 import 'package:demo_app/features/auth/data/dto/request/refresh_token_request_dto.dart';
 import 'package:demo_app/features/auth/data/dto/request/sign_in_request_dto.dart';
+import 'package:demo_app/features/auth/data/dto/request/sign_up_request_dto.dart';
 import 'package:demo_app/features/auth/data/mapper/auth_mapper.dart';
 import 'package:demo_app/features/auth/data/remote/auth_api.dart';
+import 'package:demo_app/features/auth/domain/entity/sign_in_response.dart';
 import 'package:demo_app/features/auth/domain/entity/user.dart';
 import 'package:demo_app/features/auth/domain/repository/auth_repository.dart';
 import 'package:dio/dio.dart';
@@ -26,7 +28,7 @@ class _AuthRepository implements AuthRepository {
   const _AuthRepository(this._api);
 
   @override
-  Future<Result<User, Failure>> signIn({
+  Future<Result<SignInResponse, Failure>> signIn({
     required String email,
     required String password,
     required String role,
@@ -37,6 +39,32 @@ class _AuthRepository implements AuthRepository {
         SignInRequestDto(email: email, password: password, role: role),
       );
 
+      if (!response.success) {
+        return Error(ServerFailure(response.message, statusCode: response.statusCode));
+      }
+      if (response.errors != null && response.errors!.isNotEmpty) {
+        return Error(ServerFailure(response.errors!.join(', ')));
+      }
+      return Success(AuthMapper.fromSignInResponseDto(response.data!));
+    } on DioException catch (e) {
+      return Error(mapDioError(e));
+    } catch (_) {
+      return const Error(UnknownFailure());
+    }
+  }
+
+  @override
+  Future<Result<User, Failure>> signUp({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String password,
+    required String imageUrl,
+  }) async {
+    try {
+      final response = await _api.signUp(
+        SignUpRequestDto(firstName: firstName, lastName: lastName, email: email, password: password, imageUrl: imageUrl),
+      );
       if (!response.success) {
         return Error(ServerFailure(response.message, statusCode: response.statusCode));
       }
@@ -80,7 +108,7 @@ class _AuthRepository implements AuthRepository {
   // }
 
   @override
-  Future<Result<User, Failure>> googleSignIn({required String idToken}) async {
+  Future<Result<SignInResponse, Failure>> googleSignIn({required String idToken}) async {
     try {
       final response = await _api.googleSignIn(GoogleSignInRequestDto(idToken: idToken));
 
@@ -90,7 +118,7 @@ class _AuthRepository implements AuthRepository {
       if (response.errors != null && response.errors!.isNotEmpty) {
         return Error(ServerFailure(response.errors!.join(', ')));
       }
-      return Success(AuthMapper.fromUserDto(response.data!));
+      return Success(AuthMapper.fromSignInResponseDto(response.data!));
     } on DioException catch (e) {
       return Error(mapDioError(e));
     } catch (_) {

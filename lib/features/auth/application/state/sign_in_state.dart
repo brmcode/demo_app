@@ -1,5 +1,5 @@
 import 'package:demo_app/common/exception/failure.dart';
-import 'package:demo_app/features/auth/domain/entity/user.dart';
+import 'package:demo_app/features/auth/domain/entity/sign_in_response.dart';
 
 sealed class SignInState {
   const SignInState();
@@ -14,7 +14,7 @@ class SignInLoading extends SignInState {
 }
 
 class SignInSuccess extends SignInState {
-  final User user;
+  final SignInResponse user;
   const SignInSuccess(this.user);
 }
 

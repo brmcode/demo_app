@@ -50,6 +50,36 @@ class _AuthApi implements AuthApi {
   }
 
   @override
+  Future<ResponseResult<UserDto>> signUp(SignUpRequestDto body) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = body;
+    final _options = _setStreamType<ResponseResult<UserDto>>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/api/auth/register',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ResponseResult<UserDto> _value;
+    try {
+      _value = ResponseResult<UserDto>.fromJson(
+        _result.data!,
+        (json) => UserDto.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, response: _result);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
   Future<ResponseResult<void>> signOut(RefreshTokenRequestDto body) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

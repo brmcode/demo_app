@@ -17,8 +17,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
 class SignUpPage3 extends ConsumerStatefulWidget {
-  final VoidCallback onSubmit;
-  const SignUpPage3({super.key, required this.onSubmit});
+  const SignUpPage3({super.key});
 
   @override
   ConsumerState<SignUpPage3> createState() => _SignUpPage3State();
@@ -124,34 +123,25 @@ class _SignUpPage3State extends ConsumerState<SignUpPage3> {
           width: double.infinity,
           height: 48,
           child: ElevatedButton(
-            onPressed: () {},
-            child: Text(
-              'Sign Up',
-              style: textTheme.titleMedium?.copyWith(
-                color: colorScheme.onPrimary,
-              ),
-            ),
+            onPressed: state.isLoading
+                ? null
+                : () {
+                    ref.read(signUpProvider.notifier).submit();
+                  },
+            child: state.isLoading
+                ? const SizedBox(
+                    height: 20,
+                    width: 20,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  )
+                : Text(
+                    'Submit',
+                    style: textTheme.titleMedium?.copyWith(
+                      color: colorScheme.onPrimary,
+                    ),
+                  ),
           ),
         ),
-        //         SizedBox(
-        //   width: double.infinity,
-        //   height: 48,
-        //   child: ElevatedButton(
-        //     onPressed: isLoading ? null : _onSubmit,
-        //     child: isLoading
-        //         ? const SizedBox(
-        //             height: 20,
-        //             width: 20,
-        //             child: CircularProgressIndicator(strokeWidth: 2),
-        //           )
-        //         : Text(
-        //             'Submit',
-        //             style: textTheme.titleMedium?.copyWith(
-        //               color: colorScheme.onPrimary,
-        //             ),
-        //           ),
-        //   ),
-        // ),
       ),
     );
   }

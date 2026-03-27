@@ -7,11 +7,8 @@ class User {
   final String email;
   final List<Role> roles;
   final String imageUrl;
-  final String sessionId;
-  final String accessToken;
-  final DateTime accessTokenExpiresAt;
-  final String refreshToken;
-  final DateTime refreshTokenExpiresAt;
+  final DateTime createdAt;
+  final DateTime passwordChangedAt;
 
   const User({
     required this.username,
@@ -20,18 +17,7 @@ class User {
     required this.email,
     required this.roles,
     required this.imageUrl,
-    required this.sessionId,
-    required this.accessToken,
-    required this.accessTokenExpiresAt,
-    required this.refreshToken,
-    required this.refreshTokenExpiresAt,
+    required this.createdAt,
+    required this.passwordChangedAt,
   });
-
-  String get fullName => '$firstName $lastName'.trim();
-  String get displayName => fullName.isNotEmpty ? fullName : username;
-
-  bool hasRole(String roleCode) => roles.any((role) => role.code == roleCode);
-  bool get isAdmin => hasRole('ADMIN');
-  bool get isAccessTokenExpired => DateTime.now().isAfter(accessTokenExpiresAt);
-  String get primaryRole => roles.isNotEmpty ? roles.first.code : 'USER';
 }

@@ -10,13 +10,13 @@ part 'media_api.g.dart';
 abstract class MediaApi {
   factory MediaApi(Dio dio, {String baseUrl}) = _MediaApi;
 
-  @GET('/api/media/image/{fileName}')
+  @GET('/cdn/avatars/{fileName}')
   @DioResponseType(ResponseType.bytes)
-  Future<HttpResponse<List<int>>> getImage(@Path('fileName') String fileName);
+  Future<HttpResponse<List<int>>> getAvatar(@Path('fileName') String fileName);
 
-  @POST('/api/media/upload')
+  @POST('/api/uploads/avatar')
   @MultiPart()
-  Future<HttpResponse<ResponseResult<String?>>> uploadImage(@Part(name: 'file') MultipartFile file);
+  Future<HttpResponse<ResponseResult<String?>>> uploadAvatar(@Part(name: 'file') MultipartFile file);
 }
 
 @Riverpod(keepAlive: true)

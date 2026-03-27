@@ -21,34 +21,108 @@ GoRouter goRouter(Ref ref) {
       GoRoute(
         path: AppRoute.home.path,
         name: AppRoute.home.name,
-        builder: (context, state) => const HomePage(title: 'Flutter Demo Home Page'),
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const HomePage(title: 'Flutter Demo Home Page'),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            final tween = Tween(
+              begin: const Offset(1, 0), // 👉 right → left
+              end: Offset.zero,
+            ).chain(CurveTween(curve: Curves.easeOut));
+            return SlideTransition(
+              position: animation.drive(tween),
+              child: child,
+            );
+          },
+        ),
       ),
       GoRoute(
         path: AppRoute.auth.path,
         name: AppRoute.auth.name,
-        builder: (context, state) => const AuthPage(),
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const AuthPage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            final tween = Tween(
+              begin: const Offset(1, 0), // 👉 right → left
+              end: Offset.zero,
+            ).chain(CurveTween(curve: Curves.easeOut));
+            return SlideTransition(
+              position: animation.drive(tween),
+              child: child,
+            );
+          },
+        ),
         routes: [
           GoRoute(
             path: AppRoute.signIn.path,
             name: AppRoute.signIn.name,
-            builder: (context, state) => const SignInPage(),
+            pageBuilder: (context, state) => CustomTransitionPage(
+              key: state.pageKey,
+              child: const SignInPage(),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                final tween = Tween(
+                  begin: const Offset(1, 0), // 👉 right → left
+                  end: Offset.zero,
+                ).chain(CurveTween(curve: Curves.easeOut));
+                return SlideTransition(
+                  position: animation.drive(tween),
+                  child: child,
+                );
+              },
+            ),
           ),
           GoRoute(
             path: AppRoute.signUp1.path,
             name: AppRoute.signUp1.name,
-            builder: (context, state) => const SignUpPage1(),
+            pageBuilder: (context, state) => CustomTransitionPage(
+              key: state.pageKey,
+              child: const SignUpPage1(),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                final tween = Tween(
+                  begin: const Offset(1, 0), // 👉 right → left
+                  end: Offset.zero,
+                ).chain(CurveTween(curve: Curves.easeOut));
+                return SlideTransition(
+                  position: animation.drive(tween),
+                  child: child,
+                );
+              },
+            ),
           ),
           GoRoute(
             path: AppRoute.signUp2.path,
             name: AppRoute.signUp2.name,
-            builder: (context, state) => const SignUpPage2(),
+            pageBuilder: (context, state) => CustomTransitionPage(
+              key: state.pageKey,
+              child: const SignUpPage2(),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                final tween = Tween(
+                  begin: const Offset(1, 0), // 👉 right → left
+                  end: Offset.zero,
+                ).chain(CurveTween(curve: Curves.easeOut));
+                return SlideTransition(
+                  position: animation.drive(tween),
+                  child: child,
+                );
+              },
+            ),
           ),
           GoRoute(
             path: AppRoute.signUp3.path,
             name: AppRoute.signUp3.name,
-            builder: (context, state) => SignUpPage3(
-              onSubmit: () {
-                context.goNamed(AppRoute.home.name);
+            pageBuilder: (context, state) => CustomTransitionPage(
+              key: state.pageKey,
+              child: const SignUpPage3(),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                final tween = Tween(
+                  begin: const Offset(1, 0), // 👉 right → left
+                  end: Offset.zero,
+                ).chain(CurveTween(curve: Curves.easeOut));
+                return SlideTransition(
+                  position: animation.drive(tween),
+                  child: child,
+                );
               },
             ),
           ),

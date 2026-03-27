@@ -1,6 +1,6 @@
 import 'package:demo_app/common/exception/failure.dart';
 import 'package:demo_app/core/domain/usecase/base_use_case.dart';
-import 'package:demo_app/features/auth/domain/entity/user.dart';
+import 'package:demo_app/features/auth/domain/entity/sign_in_response.dart';
 import 'package:demo_app/features/auth/domain/repository/auth_repository.dart';
 import 'package:multiple_result/multiple_result.dart';
 
@@ -16,12 +16,12 @@ final class SignInParams {
   });
 }
 
-class SignInUseCase implements UseCase<SignInParams, User> {
+class SignInUseCase implements UseCase<SignInParams, SignInResponse> {
   final AuthRepository _repository;
   const SignInUseCase(this._repository);
 
   @override
-  Future<Result<User, Failure>> call(SignInParams params) {
+  Future<Result<SignInResponse, Failure>> call(SignInParams params) {
     return _repository.signIn(
       email: params.email,
       password: params.password,

@@ -6,7 +6,7 @@ import 'package:image_cropper/image_cropper.dart';
 
 final class ImageProcessorService {
   ImageProcessorService({ImageCropper? imageCropper}) : _imageCropper = imageCropper ?? ImageCropper();
-  static const int _targetSize = 512;
+  static const int _targetSize = 256;
   static const int _quality = 70;
 
   final ImageCropper _imageCropper;
