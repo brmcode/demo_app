@@ -15,7 +15,7 @@ import 'package:demo_app/features/auth/domain/usecase/sign_out_use_case.dart';
 part 'sign_in_provider.g.dart';
 
 @Riverpod(keepAlive: true)
-class AuthNotifier extends _$AuthNotifier {
+class SignInNotifier extends _$SignInNotifier {
   final _googleService = service.GoogleSignInService.instance;
 
   @override

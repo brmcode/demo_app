@@ -13,7 +13,7 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authState = ref.watch(authProvider);
+    final authState = ref.watch(signInProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -24,7 +24,7 @@ class HomePage extends ConsumerWidget {
             IconButton(
               onPressed: () async {
                 context.goNamed(AppRoute.auth.name);
-                await ref.read(authProvider.notifier).signOut();
+                await ref.read(signInProvider.notifier).signOut();
               },
               icon: const Icon(Icons.logout_rounded),
             ),

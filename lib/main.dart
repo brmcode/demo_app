@@ -1,11 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:demo_app/main_widget.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:window_manager/window_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   if (!kIsWeb && defaultTargetPlatform == TargetPlatform.windows) {
     await windowManager.ensureInitialized();
     WindowOptions windowOptions = const WindowOptions(

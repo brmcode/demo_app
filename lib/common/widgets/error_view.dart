@@ -1,5 +1,5 @@
+import 'package:demo_app/common/exception/failure.dart';
 import 'package:flutter/material.dart';
-import '../exception/failure.dart';
 
 class ErrorView extends StatelessWidget {
   final Failure failure;

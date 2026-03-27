@@ -1,8 +1,10 @@
 import 'package:demo_app/core/router/app_route.dart';
 import 'package:demo_app/features/auth/presentation/page/auth_page.dart';
+import 'package:demo_app/features/auth/presentation/page/sign_up_page_1.dart';
+import 'package:demo_app/features/auth/presentation/page/sign_up_page_2.dart';
+import 'package:demo_app/features/auth/presentation/page/sign_up_page_3.dart';
 import 'package:demo_app/features/home/presentation/page/home_page.dart';
 import 'package:demo_app/features/auth/presentation/page/sign_in_page.dart';
-import 'package:demo_app/features/auth/presentation/page/sign_up_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
@@ -32,9 +34,23 @@ GoRouter goRouter(Ref ref) {
             builder: (context, state) => const SignInPage(),
           ),
           GoRoute(
-            path: AppRoute.signUp.path,
-            name: AppRoute.signUp.name,
-            builder: (context, state) => const SignUpPage(),
+            path: AppRoute.signUp1.path,
+            name: AppRoute.signUp1.name,
+            builder: (context, state) => const SignUpPage1(),
+          ),
+          GoRoute(
+            path: AppRoute.signUp2.path,
+            name: AppRoute.signUp2.name,
+            builder: (context, state) => const SignUpPage2(),
+          ),
+          GoRoute(
+            path: AppRoute.signUp3.path,
+            name: AppRoute.signUp3.name,
+            builder: (context, state) => SignUpPage3(
+              onSubmit: () {
+                context.goNamed(AppRoute.home.name);
+              },
+            ),
           ),
         ],
       ),

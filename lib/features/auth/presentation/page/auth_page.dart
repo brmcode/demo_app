@@ -47,9 +47,10 @@ class _AuthPageState extends ConsumerState<AuthPage> with SingleTickerProviderSt
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-    final authState = ref.watch(authProvider);
+    final authState = ref.watch(signInProvider);
+    final size = MediaQuery.of(context).size;
 
-    ref.listen<SignInState>(authProvider, (_, next) {
+    ref.listen<SignInState>(signInProvider, (_, next) {
       if (next is SignInSuccess) {
         context.goNamed(AppRoute.home.name);
       }
@@ -61,154 +62,154 @@ class _AuthPageState extends ConsumerState<AuthPage> with SingleTickerProviderSt
           opacity: _fadeIn,
           child: SlideTransition(
             position: _slideUp,
-            child: Padding(
-              padding: AppSpacing.pagePadding,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Spacer(flex: 2),
-                  Center(
-                    child: Container(
-                      width: 72,
-                      height: 72,
-                      decoration: BoxDecoration(
-                        color: colorScheme.primary.withValues(alpha: 0.12),
-                        borderRadius: AppRadius.lgAll,
-                        border: Border.all(
-                          color: colorScheme.primary.withValues(alpha: 0.3),
-                          width: 1.5,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: AppSpacing.pagePadding,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Gap(size.height * 0.1),
+                    Center(
+                      child: Container(
+                        width: 72,
+                        height: 72,
+                        decoration: BoxDecoration(
+                          color: colorScheme.primary.withValues(alpha: 0.12),
+                          borderRadius: AppRadius.lgAll,
+                          border: Border.all(
+                            color: colorScheme.primary.withValues(alpha: 0.3),
+                            width: 1.5,
+                          ),
                         ),
-                      ),
-                      child: Icon(
-                        Icons.code_rounded,
-                        size: 36,
-                        color: colorScheme.primary,
-                      ),
-                    ),
-                  ),
-
-                  AppSpacing.gap24,
-
-                  Center(
-                    child: Text(
-                      'DEMO',
-                      style: textTheme.displaySmall?.copyWith(
-                        fontWeight: FontWeight.w800,
-                        letterSpacing: 6,
-                        color: colorScheme.onSurface,
-                      ),
-                    ),
-                  ),
-                  AppSpacing.gap4,
-                  Center(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 4,
-                      ),
-                      decoration: BoxDecoration(
-                        color: colorScheme.primary.withValues(alpha: 0.1),
-                        borderRadius: AppRadius.fullAll,
-                      ),
-                      child: Text(
-                        'A Flutter Demo Application',
-                        style: textTheme.labelSmall?.copyWith(
+                        child: Icon(
+                          Icons.code_rounded,
+                          size: 36,
                           color: colorScheme.primary,
-                          letterSpacing: 0.5,
                         ),
                       ),
                     ),
-                  ),
-                  AppSpacing.gap16,
-                  Center(
-                    child: Text(
-                      'Build your next Flutter project with clean architecture and best practices.',
-                      textAlign: TextAlign.center,
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: colorScheme.onSurfaceVariant,
-                        height: 1.6,
+                    AppSpacing.gap24,
+                    Center(
+                      child: Text(
+                        'DEMO',
+                        style: textTheme.displaySmall?.copyWith(
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: 6,
+                          color: colorScheme.onSurface,
+                        ),
                       ),
                     ),
-                  ),
-                  const Spacer(flex: 2),
-                  SizedBox(
-                    height: 48,
-                    child: ElevatedButton(
-                      onPressed: () => context.pushNamed(AppRoute.signUp.name),
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('Sign Up'),
-                          Gap(AppSpacing.sm),
-                          Icon(Icons.arrow_forward_rounded, size: 18),
-                        ],
-                      ),
-                    ),
-                  ),
-                  AppSpacing.gap16,
-                  SizedBox(
-                    height: 48,
-                    child: OutlinedButton(
-                      onPressed: () => context.pushNamed(AppRoute.signIn.name),
-                      child: const Text('Sign In'),
-                    ),
-                  ),
-                  AppSpacing.gap32,
-                  Row(
-                    children: [
-                      const Expanded(child: Divider()),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                    AppSpacing.gap4,
+                    Center(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: colorScheme.primary.withValues(alpha: 0.1),
+                          borderRadius: AppRadius.fullAll,
+                        ),
                         child: Text(
-                          'OR',
+                          'A Flutter Demo Application',
                           style: textTheme.labelSmall?.copyWith(
-                            color: colorScheme.onSurfaceVariant,
+                            color: colorScheme.primary,
+                            letterSpacing: 0.5,
                           ),
                         ),
                       ),
-                      const Expanded(child: Divider()),
-                    ],
-                  ),
-                  AppSpacing.gap16,
-                  GoogleButton(
-                    onPressed: authState is SignInLoading ? () {} : () => ref.read(authProvider.notifier).googleSignIn(),
-                  ),
-                  if (authState is SignInError) ...[
+                    ),
                     AppSpacing.gap16,
-                    Container(
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: colorScheme.errorContainer,
-                        borderRadius: BorderRadius.circular(8),
+                    Center(
+                      child: Text(
+                        'Build your next Flutter project with clean architecture and best practices.',
+                        textAlign: TextAlign.center,
+                        style: textTheme.bodyMedium?.copyWith(
+                          color: colorScheme.onSurfaceVariant,
+                          height: 1.6,
+                        ),
                       ),
-                      child: Row(
-                        children: [
-                          Icon(Icons.error_outline, color: colorScheme.onErrorContainer, size: 18),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Text(
-                              authState.failure.message,
-                              style: textTheme.bodySmall?.copyWith(
-                                color: colorScheme.onErrorContainer,
-                              ),
+                    ),
+                    Gap(size.height * 0.1),
+                    SizedBox(
+                      height: 48,
+                      child: ElevatedButton(
+                        onPressed: () => context.pushNamed(AppRoute.signUp1.name),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Sign Up'),
+                            Gap(AppSpacing.sm),
+                            Icon(Icons.arrow_forward_rounded, size: 18),
+                          ],
+                        ),
+                      ),
+                    ),
+                    AppSpacing.gap16,
+                    SizedBox(
+                      height: 48,
+                      child: OutlinedButton(
+                        onPressed: () => context.pushNamed(AppRoute.signIn.name),
+                        child: const Text('Sign In'),
+                      ),
+                    ),
+                    AppSpacing.gap32,
+                    Row(
+                      children: [
+                        const Expanded(child: Divider()),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          child: Text(
+                            'OR',
+                            style: textTheme.labelSmall?.copyWith(
+                              color: colorScheme.onSurfaceVariant,
                             ),
                           ),
-                        ],
+                        ),
+                        const Expanded(child: Divider()),
+                      ],
+                    ),
+                    AppSpacing.gap16,
+                    GoogleButton(
+                      onPressed: authState is SignInLoading ? () {} : () => ref.read(signInProvider.notifier).googleSignIn(),
+                    ),
+                    if (authState is SignInError) ...[
+                      AppSpacing.gap16,
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: colorScheme.errorContainer,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(Icons.error_outline, color: colorScheme.onErrorContainer, size: 18),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                authState.failure.message,
+                                style: textTheme.bodySmall?.copyWith(
+                                  color: colorScheme.onErrorContainer,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                    Gap(size.height * 0.05),
+                    Center(
+                      child: Text(
+                        'DEMO v1.0.0',
+                        style: textTheme.labelSmall?.copyWith(
+                          color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
+                          letterSpacing: 1,
+                        ),
                       ),
                     ),
+                    AppSpacing.gap8,
                   ],
-                  const Spacer(flex: 1),
-                  Center(
-                    child: Text(
-                      'DEMO v1.0.0',
-                      style: textTheme.labelSmall?.copyWith(
-                        color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
-                        letterSpacing: 1,
-                      ),
-                    ),
-                  ),
-                  AppSpacing.gap8,
-                ],
+                ),
               ),
             ),
           ),

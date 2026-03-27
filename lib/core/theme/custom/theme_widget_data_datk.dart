@@ -1,10 +1,9 @@
+import 'package:demo_app/core/theme/app_color.dart';
+import 'package:demo_app/core/theme/app_radius.dart';
+import 'package:demo_app/core/theme/app_spacing.dart';
+import 'package:demo_app/core/theme/app_typography.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import '../app_color.dart';
-import '../app_radius.dart';
-import '../app_spacing.dart';
-import '../app_typography.dart';
 
 final appBarThemeDark = AppBarTheme(
   backgroundColor: AppColor.darkBg,

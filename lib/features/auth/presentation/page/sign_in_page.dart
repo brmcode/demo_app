@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:demo_app/core/theme/app_spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -33,9 +34,9 @@ class _SignInPageState extends ConsumerState<SignInPage> {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-    final state = ref.watch(authProvider);
+    final state = ref.watch(signInProvider);
 
-    ref.listen(authProvider, (_, next) {
+    ref.listen(signInProvider, (_, next) {
       if (next is SignInSuccess) {
         context.goNamed(AppRoute.home.name);
       }
@@ -59,14 +60,14 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                const SizedBox(height: 8),
+                AppSpacing.gap48,
                 Text(
                   'Sign in to continue',
                   style: textTheme.bodyMedium?.copyWith(
                     color: colorScheme.onSurfaceVariant,
                   ),
                 ),
-                const SizedBox(height: 48),
+                AppSpacing.gap48,
                 AppTextFormField(
                   controller: _emailCtrl,
                   keyboardType: TextInputType.emailAddress,
@@ -77,7 +78,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                   hint: 'Enter your email address',
                   prefixIcon: const Icon(Icons.mail_outline_rounded),
                 ),
-                const SizedBox(height: 16),
+                AppSpacing.gap16,
                 AppTextFormField(
                   controller: _passwordCtrl,
                   obscureText: _obscurePassword,
@@ -93,8 +94,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                     onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
                   ),
                 ),
-                const SizedBox(height: 8),
-
+                AppSpacing.gap8,
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
@@ -108,7 +108,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 16),
+                AppSpacing.gap16,
                 if (state is SignInError) ...[
                   Container(
                     padding: const EdgeInsets.all(12),
@@ -119,7 +119,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                     child: Row(
                       children: [
                         Icon(Icons.error_outline, color: colorScheme.onErrorContainer, size: 18),
-                        const SizedBox(width: 8),
+                        AppSpacing.gap8,
                         Expanded(
                           child: Text(
                             state.failure.message,
@@ -131,7 +131,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  AppSpacing.gap16,
                 ],
                 SizedBox(
                   width: double.infinity,
@@ -152,12 +152,10 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                           ),
                   ),
                 ),
-
                 Padding(
                   padding: const EdgeInsets.all(24),
                   child: Divider(color: colorScheme.onSurfaceVariant),
                 ),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -168,7 +166,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () => context..pushNamed(AppRoute.signUp.name),
+                      onTap: () => context.pushNamed(AppRoute.signUp1.name),
                       child: Text(
                         'Sign Up',
                         style: textTheme.bodySmall?.copyWith(
@@ -192,7 +190,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
     if (!_formKey.currentState!.validate()) return;
 
     ref
-        .read(authProvider.notifier)
+        .read(signInProvider.notifier)
         .signIn(
           email: _emailCtrl.text,
           password: _passwordCtrl.text,

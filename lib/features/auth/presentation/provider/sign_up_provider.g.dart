@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'sign_in_provider.dart';
+part of 'sign_up_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,51 +9,51 @@ part of 'sign_in_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(SignInNotifier)
-final signInProvider = SignInNotifierProvider._();
+@ProviderFor(SignUpNotifier)
+final signUpProvider = SignUpNotifierProvider._();
 
-final class SignInNotifierProvider
-    extends $NotifierProvider<SignInNotifier, SignInState> {
-  SignInNotifierProvider._()
+final class SignUpNotifierProvider
+    extends $NotifierProvider<SignUpNotifier, SignUpState> {
+  SignUpNotifierProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'signInProvider',
+        name: r'signUpProvider',
         isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$signInNotifierHash();
+  String debugGetCreateSourceHash() => _$signUpNotifierHash();
 
   @$internal
   @override
-  SignInNotifier create() => SignInNotifier();
+  SignUpNotifier create() => SignUpNotifier();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(SignInState value) {
+  Override overrideWithValue(SignUpState value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<SignInState>(value),
+      providerOverride: $SyncValueProvider<SignUpState>(value),
     );
   }
 }
 
-String _$signInNotifierHash() => r'be989b5d01f27a73fbe81165474a988c0a2013d5';
+String _$signUpNotifierHash() => r'4f81046fb28660ff9ac069a9a2dfbdc02d60c9a3';
 
-abstract class _$SignInNotifier extends $Notifier<SignInState> {
-  SignInState build();
+abstract class _$SignUpNotifier extends $Notifier<SignUpState> {
+  SignUpState build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<SignInState, SignInState>;
+    final ref = this.ref as $Ref<SignUpState, SignUpState>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<SignInState, SignInState>,
-              SignInState,
+              AnyNotifier<SignUpState, SignUpState>,
+              SignUpState,
               Object?,
               Object?
             >;
