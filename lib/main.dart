@@ -15,7 +15,7 @@ void main() async {
       minimumSize: Size(440, 956),
       maximumSize: Size(440, 956),
       center: true,
-      title: "Flutter Setup",
+      title: "Demo App",
     );
     windowManager.waitUntilReadyToShow(windowOptions, () async {
       await windowManager.show();

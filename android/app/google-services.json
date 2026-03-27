@@ -7,17 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:770051734068:android:83d6d185e35bf61cdda861",
+        "mobilesdk_app_id": "1:770051734068:android:dae2819a8c042279dda861",
         "android_client_info": {
-          "package_name": "com.example.demo_app"
+          "package_name": "com.brmcode.demo_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "770051734068-ikmk4ukvfhdbc258mbvj3ahb6s018qih.apps.googleusercontent.com",
+          "client_id": "770051734068-c891rr54afsi6jv843g19cfmo5bbj8no.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.demo_app",
+            "package_name": "com.brmcode.demo_app",
             "certificate_hash": "d9a957b3af1eec5835b2efcdbb74af48451a0bd5"
           }
         },
