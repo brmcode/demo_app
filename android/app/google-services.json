@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "770051734068-c891rr54afsi6jv843g19cfmo5bbj8no.apps.googleusercontent.com",
+          "client_id": "770051734068-3hpibqf3ib7jov1qui4friasnolc9mgc.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.brmcode.demo_app",
-            "certificate_hash": "d9a957b3af1eec5835b2efcdbb74af48451a0bd5"
+            "certificate_hash": "232b52d9e3d57571829cda64bd1d9f8922de037d"
           }
         },
         {

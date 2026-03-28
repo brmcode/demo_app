@@ -67,7 +67,8 @@ class SignInNotifier extends _$SignInNotifier {
           await _saveTokens(user.accessToken, user.refreshToken);
           state = SignInSuccess(user);
         });
-        backendResult.whenError((failure) {
+        backendResult.whenError((failure) async {
+          await _googleService.signOut();
           state = SignInError(failure);
           log("GoogleSignInError: ${failure.message}");
         });
