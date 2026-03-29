@@ -1,4 +1,4 @@
-import 'package:demo_app/common/widgets/app_text_form_field.dart';
+import 'package:demo_app/core/presentation/widgets/app_text_form_field.dart';
 import 'package:demo_app/core/router/app_route.dart';
 import 'package:demo_app/core/theme/app_spacing.dart';
 import 'package:demo_app/features/auth/application/validator/sign_up_validator.dart';

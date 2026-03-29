@@ -1,10 +1,10 @@
 import 'dart:developer';
 
+import 'package:demo_app/core/presentation/widgets/app_text_form_field.dart';
 import 'package:demo_app/core/theme/app_spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:demo_app/common/widgets/app_text_form_field.dart';
 import 'package:demo_app/core/router/app_route.dart';
 import 'package:demo_app/features/auth/application/state/sign_in_state.dart';
 import 'package:demo_app/features/auth/application/validator/auth_validator.dart';
