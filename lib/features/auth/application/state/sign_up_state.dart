@@ -1,6 +1,6 @@
+import 'package:demo_app/core/domain/exception/failure.dart';
 import 'package:demo_app/features/auth/domain/entity/user.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:demo_app/common/exception/failure.dart';
 
 part 'sign_up_state.freezed.dart';
 

@@ -1,7 +1,7 @@
 import 'dart:developer';
 
+import 'package:demo_app/core/domain/exception/failure.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:demo_app/common/exception/failure.dart';
 import 'package:demo_app/core/data/local/secure_storage/secure_storage_const.dart';
 import 'package:demo_app/core/data/local/secure_storage/secure_storage_provider.dart';
 import 'package:demo_app/features/auth/application/state/sign_in_state.dart';

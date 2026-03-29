@@ -1,4 +1,4 @@
-import 'package:demo_app/common/exception/failure.dart';
+import 'package:demo_app/core/domain/exception/failure.dart';
 import 'package:demo_app/features/auth/domain/entity/sign_in_response.dart';
 import 'package:demo_app/features/auth/domain/repository/auth_repository.dart';
 import 'package:multiple_result/multiple_result.dart';

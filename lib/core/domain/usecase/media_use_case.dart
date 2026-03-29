@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:demo_app/common/exception/failure.dart';
+import 'package:demo_app/core/domain/exception/failure.dart';
 import 'package:demo_app/core/domain/repository/media_repository.dart';
 import 'package:demo_app/core/domain/usecase/base_use_case.dart';
 import 'package:dio/dio.dart';

@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:demo_app/common/helper/helper.dart';
+import 'package:demo_app/core/common/helper.dart';
 import 'package:demo_app/core/domain/strategy/crop_strategy.dart';
 import 'package:demo_app/core/service/image_picker_service.dart';
 import 'package:demo_app/core/service/image_processor_service.dart';

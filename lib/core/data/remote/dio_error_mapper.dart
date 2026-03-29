@@ -1,10 +1,8 @@
-import 'package:demo_app/common/exception/failure.dart';
+import 'package:demo_app/core/domain/exception/failure.dart';
 import 'package:dio/dio.dart';
 
 Failure mapDioError(DioException e) => switch (e.type) {
-  DioExceptionType.connectionTimeout ||
-  DioExceptionType.receiveTimeout ||
-  DioExceptionType.sendTimeout => const NetworkFailure('Request timed out'),
+  DioExceptionType.connectionTimeout || DioExceptionType.receiveTimeout || DioExceptionType.sendTimeout => const NetworkFailure('Request timed out'),
   DioExceptionType.connectionError => const NetworkFailure('No internet connection'),
   DioExceptionType.badResponse => ServerFailure(
     _extractErrorMessage(e.response?.data),

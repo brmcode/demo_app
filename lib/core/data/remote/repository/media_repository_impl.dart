@@ -1,7 +1,7 @@
-import 'package:demo_app/common/exception/failure.dart';
 import 'package:demo_app/core/data/remote/api/media_api.dart';
 import 'package:demo_app/core/data/remote/dio_error_mapper.dart';
 import 'package:demo_app/core/data/remote/dio_provider.dart';
+import 'package:demo_app/core/domain/exception/failure.dart';
 import 'package:demo_app/core/domain/repository/media_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:multiple_result/multiple_result.dart';

@@ -1,6 +1,6 @@
-import 'package:demo_app/common/exception/failure.dart';
 import 'package:demo_app/core/data/remote/dio_error_mapper.dart';
 import 'package:demo_app/core/data/remote/dio_provider.dart';
+import 'package:demo_app/core/domain/exception/failure.dart';
 import 'package:demo_app/features/auth/data/dto/request/google_sign_in_request_dto.dart';
 import 'package:demo_app/features/auth/data/dto/request/refresh_token_request_dto.dart';
 import 'package:demo_app/features/auth/data/dto/request/sign_in_request_dto.dart';

@@ -2,12 +2,12 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:demo_app/config/dev.dart';
+import 'package:demo_app/core/domain/exception/failure.dart';
 import 'package:demo_app/core/domain/usecase/media_use_case.dart';
 import 'package:demo_app/core/domain/usecase/use_case_provider.dart';
 import 'package:demo_app/features/auth/application/validator/sign_up_validator.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:demo_app/features/auth/application/state/sign_up_state.dart';
-import 'package:demo_app/common/exception/failure.dart';
 
 part 'sign_up_provider.g.dart';
 

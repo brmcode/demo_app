@@ -1,4 +1,4 @@
-import 'package:demo_app/common/validator/validation_result.dart';
+import 'package:demo_app/core/domain/validator/validation_result.dart';
 
 abstract class SignUpValidator {
   static ValidationResult validateFirstName(String? value) {
