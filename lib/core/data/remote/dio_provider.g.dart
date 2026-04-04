@@ -8,12 +8,16 @@ part of 'dio_provider.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// Base Dio — no auth header injection.
 
 @ProviderFor(dio)
 final dioProvider = DioProvider._();
 
+/// Base Dio — no auth header injection.
+
 final class DioProvider extends $FunctionalProvider<Dio, Dio, Dio>
     with $Provider<Dio> {
+  /// Base Dio — no auth header injection.
   DioProvider._()
     : super(
         from: null,
@@ -47,13 +51,18 @@ final class DioProvider extends $FunctionalProvider<Dio, Dio, Dio>
   }
 }
 
-String _$dioHash() => r'c44c31fe1af3d97faab1d4fcc120b5ba79fa1db1';
+String _$dioHash() => r'62a3677986dfd23e1f9896b389006546ebdff667';
+
+/// Dio with automatic token injection + refresh-on-401.
 
 @ProviderFor(dioWithAuth)
 final dioWithAuthProvider = DioWithAuthProvider._();
 
+/// Dio with automatic token injection + refresh-on-401.
+
 final class DioWithAuthProvider extends $FunctionalProvider<Dio, Dio, Dio>
     with $Provider<Dio> {
+  /// Dio with automatic token injection + refresh-on-401.
   DioWithAuthProvider._()
     : super(
         from: null,
@@ -87,86 +96,4 @@ final class DioWithAuthProvider extends $FunctionalProvider<Dio, Dio, Dio>
   }
 }
 
-String _$dioWithAuthHash() => r'9e8d5743ea4e028a969759befb2f49638aa0a706';
-
-@ProviderFor(authApi)
-final authApiProvider = AuthApiProvider._();
-
-final class AuthApiProvider
-    extends $FunctionalProvider<AuthApi, AuthApi, AuthApi>
-    with $Provider<AuthApi> {
-  AuthApiProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'authApiProvider',
-        isAutoDispose: false,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$authApiHash();
-
-  @$internal
-  @override
-  $ProviderElement<AuthApi> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
-
-  @override
-  AuthApi create(Ref ref) {
-    return authApi(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(AuthApi value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<AuthApi>(value),
-    );
-  }
-}
-
-String _$authApiHash() => r'fe97432bc17461ebde4a232f1f399cd20c5aa5e4';
-
-@ProviderFor(authApiWithAuth)
-final authApiWithAuthProvider = AuthApiWithAuthProvider._();
-
-final class AuthApiWithAuthProvider
-    extends $FunctionalProvider<AuthApi, AuthApi, AuthApi>
-    with $Provider<AuthApi> {
-  AuthApiWithAuthProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'authApiWithAuthProvider',
-        isAutoDispose: false,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$authApiWithAuthHash();
-
-  @$internal
-  @override
-  $ProviderElement<AuthApi> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
-
-  @override
-  AuthApi create(Ref ref) {
-    return authApiWithAuth(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(AuthApi value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<AuthApi>(value),
-    );
-  }
-}
-
-String _$authApiWithAuthHash() => r'd66d3e44ba9b5898eca944bafbebb044b41ed808';
+String _$dioWithAuthHash() => r'4257642aa1e8ae16ddb1c1531a3fbf2f12c77d6c';

@@ -7,14 +7,13 @@ part 'secure_storage_provider.g.dart';
 
 @Riverpod(keepAlive: true)
 FlutterSecureStorage flutterSecureStorage(Ref ref) {
-  const androidOptions = AndroidOptions();
-  const iosOptions = IOSOptions(accessibility: KeychainAccessibility.first_unlock);
-
-  return const FlutterSecureStorage(aOptions: androidOptions, iOptions: iosOptions);
+  return const FlutterSecureStorage(
+    aOptions: AndroidOptions(),
+    iOptions: IOSOptions(
+      accessibility: KeychainAccessibility.first_unlock,
+    ),
+  );
 }
 
 @Riverpod(keepAlive: true)
-SecureStorage secureStorage(Ref ref) {
-  final flutterSecureStorage = ref.watch(flutterSecureStorageProvider);
-  return SecureStorageImpl(flutterSecureStorage);
-}
+SecureStorage secureStorage(Ref ref) => SecureStorageImpl(ref.watch(flutterSecureStorageProvider));

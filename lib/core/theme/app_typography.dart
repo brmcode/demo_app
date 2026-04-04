@@ -1,9 +1,10 @@
+import 'package:demo_app/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
 
 abstract final class AppTypography {
   AppTypography._();
 
-  static const String _font = 'NotoSansThai';
+  static const String _font = FontFamily.notoSansThai;
 
   static TextTheme get textTheme => const TextTheme(
     // Display

@@ -55,7 +55,7 @@ final class FlutterSecureStorageProvider
 }
 
 String _$flutterSecureStorageHash() =>
-    r'40dae4679d5db153fbbff4a37107d94686527060';
+    r'8cebb97d951e0ef068bd7541b5c5bdb3cd680f7b';
 
 @ProviderFor(secureStorage)
 final secureStorageProvider = SecureStorageProvider._();
@@ -96,4 +96,4 @@ final class SecureStorageProvider
   }
 }
 
-String _$secureStorageHash() => r'a103a15edcb49336f80187d74acd28755f8201b2';
+String _$secureStorageHash() => r'6e01faecaf7b3f18230ec8fe701b6231640c8f71';

@@ -1,3 +1,4 @@
+import 'package:demo_app/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
 
 import 'app_color.dart';
@@ -11,6 +12,7 @@ abstract final class AppTheme {
   AppTheme._();
 
   static ThemeData get light => ThemeData(
+    fontFamily: FontFamily.notoSansThai,
     useMaterial3: true,
     brightness: Brightness.light,
 
@@ -83,6 +85,7 @@ abstract final class AppTheme {
   );
 
   static ThemeData get dark => ThemeData(
+    fontFamily: FontFamily.notoSansThai,
     useMaterial3: true,
     brightness: Brightness.dark,
 

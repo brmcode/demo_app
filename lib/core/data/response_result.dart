@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'response_result.freezed.dart';
 part 'response_result.g.dart';
 
+/// Generic API envelope returned by every endpoint.
 @Freezed(genericArgumentFactories: true)
 abstract class ResponseResult<T> with _$ResponseResult<T> {
   const factory ResponseResult({
