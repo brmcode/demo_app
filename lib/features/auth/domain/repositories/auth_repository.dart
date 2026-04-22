@@ -11,6 +11,14 @@ abstract interface class AuthRepository {
     required String role,
   });
 
+  Future<Result<SignInResponse, Failure>> signUpThenSignIn({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String password,
+    required String imageUrl,
+  });
+
   Future<Result<User, Failure>> signUp({
     required String firstName,
     required String lastName,

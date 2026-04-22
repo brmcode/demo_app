@@ -131,14 +131,14 @@ return data(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( User user)?  success,TResult Function( Failure failure)?  error,TResult Function( String firstName,  String lastName,  String email,  String password,  String? confirmPassword,  String? imagePath,  bool isLoading)?  data,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( SignInResponse response)?  success,TResult Function( Failure failure)?  error,TResult Function( String firstName,  String lastName,  String email,  String password,  String? confirmPassword,  String? imagePath,  String? submitError,  bool isLoading)?  data,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case SignUpInitial() when initial != null:
 return initial();case SignUpLoading() when loading != null:
 return loading();case SignUpSuccess() when success != null:
-return success(_that.user);case SignUpError() when error != null:
+return success(_that.response);case SignUpError() when error != null:
 return error(_that.failure);case SignUpData() when data != null:
-return data(_that.firstName,_that.lastName,_that.email,_that.password,_that.confirmPassword,_that.imagePath,_that.isLoading);case _:
+return data(_that.firstName,_that.lastName,_that.email,_that.password,_that.confirmPassword,_that.imagePath,_that.submitError,_that.isLoading);case _:
   return orElse();
 
 }
@@ -156,14 +156,14 @@ return data(_that.firstName,_that.lastName,_that.email,_that.password,_that.conf
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( User user)  success,required TResult Function( Failure failure)  error,required TResult Function( String firstName,  String lastName,  String email,  String password,  String? confirmPassword,  String? imagePath,  bool isLoading)  data,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( SignInResponse response)  success,required TResult Function( Failure failure)  error,required TResult Function( String firstName,  String lastName,  String email,  String password,  String? confirmPassword,  String? imagePath,  String? submitError,  bool isLoading)  data,}) {final _that = this;
 switch (_that) {
 case SignUpInitial():
 return initial();case SignUpLoading():
 return loading();case SignUpSuccess():
-return success(_that.user);case SignUpError():
+return success(_that.response);case SignUpError():
 return error(_that.failure);case SignUpData():
-return data(_that.firstName,_that.lastName,_that.email,_that.password,_that.confirmPassword,_that.imagePath,_that.isLoading);case _:
+return data(_that.firstName,_that.lastName,_that.email,_that.password,_that.confirmPassword,_that.imagePath,_that.submitError,_that.isLoading);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -180,14 +180,14 @@ return data(_that.firstName,_that.lastName,_that.email,_that.password,_that.conf
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( User user)?  success,TResult? Function( Failure failure)?  error,TResult? Function( String firstName,  String lastName,  String email,  String password,  String? confirmPassword,  String? imagePath,  bool isLoading)?  data,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( SignInResponse response)?  success,TResult? Function( Failure failure)?  error,TResult? Function( String firstName,  String lastName,  String email,  String password,  String? confirmPassword,  String? imagePath,  String? submitError,  bool isLoading)?  data,}) {final _that = this;
 switch (_that) {
 case SignUpInitial() when initial != null:
 return initial();case SignUpLoading() when loading != null:
 return loading();case SignUpSuccess() when success != null:
-return success(_that.user);case SignUpError() when error != null:
+return success(_that.response);case SignUpError() when error != null:
 return error(_that.failure);case SignUpData() when data != null:
-return data(_that.firstName,_that.lastName,_that.email,_that.password,_that.confirmPassword,_that.imagePath,_that.isLoading);case _:
+return data(_that.firstName,_that.lastName,_that.email,_that.password,_that.confirmPassword,_that.imagePath,_that.submitError,_that.isLoading);case _:
   return null;
 
 }
@@ -263,10 +263,10 @@ String toString() {
 
 
 class SignUpSuccess implements SignUpState {
-  const SignUpSuccess(this.user);
+  const SignUpSuccess(this.response);
   
 
- final  User user;
+ final  SignInResponse response;
 
 /// Create a copy of SignUpState
 /// with the given fields replaced by the non-null parameter values.
@@ -278,16 +278,16 @@ $SignUpSuccessCopyWith<SignUpSuccess> get copyWith => _$SignUpSuccessCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignUpSuccess&&(identical(other.user, user) || other.user == user));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignUpSuccess&&(identical(other.response, response) || other.response == response));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,user);
+int get hashCode => Object.hash(runtimeType,response);
 
 @override
 String toString() {
-  return 'SignUpState.success(user: $user)';
+  return 'SignUpState.success(response: $response)';
 }
 
 
@@ -298,7 +298,7 @@ abstract mixin class $SignUpSuccessCopyWith<$Res> implements $SignUpStateCopyWit
   factory $SignUpSuccessCopyWith(SignUpSuccess value, $Res Function(SignUpSuccess) _then) = _$SignUpSuccessCopyWithImpl;
 @useResult
 $Res call({
- User user
+ SignInResponse response
 });
 
 
@@ -315,10 +315,10 @@ class _$SignUpSuccessCopyWithImpl<$Res>
 
 /// Create a copy of SignUpState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? user = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? response = null,}) {
   return _then(SignUpSuccess(
-null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
-as User,
+null == response ? _self.response : response // ignore: cast_nullable_to_non_nullable
+as SignInResponse,
   ));
 }
 
@@ -395,7 +395,7 @@ as Failure,
 
 
 class SignUpData implements SignUpState {
-  const SignUpData({required this.firstName, required this.lastName, required this.email, required this.password, this.confirmPassword, this.imagePath, this.isLoading = false});
+  const SignUpData({required this.firstName, required this.lastName, required this.email, required this.password, this.confirmPassword, this.imagePath, this.submitError, this.isLoading = false});
   
 
  final  String firstName;
@@ -404,6 +404,7 @@ class SignUpData implements SignUpState {
  final  String password;
  final  String? confirmPassword;
  final  String? imagePath;
+ final  String? submitError;
 @JsonKey() final  bool isLoading;
 
 /// Create a copy of SignUpState
@@ -416,16 +417,16 @@ $SignUpDataCopyWith<SignUpData> get copyWith => _$SignUpDataCopyWithImpl<SignUpD
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignUpData&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.confirmPassword, confirmPassword) || other.confirmPassword == confirmPassword)&&(identical(other.imagePath, imagePath) || other.imagePath == imagePath)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignUpData&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.confirmPassword, confirmPassword) || other.confirmPassword == confirmPassword)&&(identical(other.imagePath, imagePath) || other.imagePath == imagePath)&&(identical(other.submitError, submitError) || other.submitError == submitError)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,firstName,lastName,email,password,confirmPassword,imagePath,isLoading);
+int get hashCode => Object.hash(runtimeType,firstName,lastName,email,password,confirmPassword,imagePath,submitError,isLoading);
 
 @override
 String toString() {
-  return 'SignUpState.data(firstName: $firstName, lastName: $lastName, email: $email, password: $password, confirmPassword: $confirmPassword, imagePath: $imagePath, isLoading: $isLoading)';
+  return 'SignUpState.data(firstName: $firstName, lastName: $lastName, email: $email, password: $password, confirmPassword: $confirmPassword, imagePath: $imagePath, submitError: $submitError, isLoading: $isLoading)';
 }
 
 
@@ -436,7 +437,7 @@ abstract mixin class $SignUpDataCopyWith<$Res> implements $SignUpStateCopyWith<$
   factory $SignUpDataCopyWith(SignUpData value, $Res Function(SignUpData) _then) = _$SignUpDataCopyWithImpl;
 @useResult
 $Res call({
- String firstName, String lastName, String email, String password, String? confirmPassword, String? imagePath, bool isLoading
+ String firstName, String lastName, String email, String password, String? confirmPassword, String? imagePath, String? submitError, bool isLoading
 });
 
 
@@ -453,7 +454,7 @@ class _$SignUpDataCopyWithImpl<$Res>
 
 /// Create a copy of SignUpState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? firstName = null,Object? lastName = null,Object? email = null,Object? password = null,Object? confirmPassword = freezed,Object? imagePath = freezed,Object? isLoading = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? firstName = null,Object? lastName = null,Object? email = null,Object? password = null,Object? confirmPassword = freezed,Object? imagePath = freezed,Object? submitError = freezed,Object? isLoading = null,}) {
   return _then(SignUpData(
 firstName: null == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
 as String,lastName: null == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
@@ -461,6 +462,7 @@ as String,email: null == email ? _self.email : email // ignore: cast_nullable_to
 as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String,confirmPassword: freezed == confirmPassword ? _self.confirmPassword : confirmPassword // ignore: cast_nullable_to_non_nullable
 as String?,imagePath: freezed == imagePath ? _self.imagePath : imagePath // ignore: cast_nullable_to_non_nullable
+as String?,submitError: freezed == submitError ? _self.submitError : submitError // ignore: cast_nullable_to_non_nullable
 as String?,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,
   ));

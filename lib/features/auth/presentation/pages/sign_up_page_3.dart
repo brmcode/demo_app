@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:demo_app/core/common/helper.dart';
+import 'package:demo_app/core/presentation/router/app_route.dart';
 import 'package:demo_app/core/domain/strategy/crop_strategy.dart';
 import 'package:demo_app/core/service/image_picker_service.dart';
 import 'package:demo_app/core/service/image_processor_service.dart';
@@ -13,6 +14,7 @@ import 'package:demo_app/features/auth/presentation/widgets/app_bar_title.dart';
 import 'package:demo_app/features/auth/presentation/widgets/header_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -49,8 +51,56 @@ class _SignUpPage3State extends ConsumerState<SignUpPage3> {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
+    final signUpState = ref.watch(signUpProvider);
+    final state = signUpState.maybeMap(data: (data) => data, orElse: () => null);
+    ref.listen(signUpProvider, (_, next) {
+      if (next is SignUpSuccess) {
+        context.goNamed(AppRoute.home.name);
+      }
+    });
 
-    final state = ref.watch(signUpProvider) as SignUpData;
+    if (state == null) {
+      final errorMessage = signUpState.maybeMap(
+        error: (error) => error.failure.message,
+        orElse: () => null,
+      );
+
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const AppBarTitle(title: 'DEMO'),
+        ),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  errorMessage ?? 'Sign up information is missing.',
+                  textAlign: TextAlign.center,
+                  style: textTheme.bodyLarge,
+                ),
+                AppSpacing.gap16,
+                SizedBox(
+                  height: 48,
+                  child: ElevatedButton(
+                    onPressed: () => context.goNamed(AppRoute.signUp1.name),
+                    child: Text(
+                      'Start again',
+                      style: textTheme.titleMedium?.copyWith(
+                        color: colorScheme.onPrimary,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -113,6 +163,23 @@ class _SignUpPage3State extends ConsumerState<SignUpPage3> {
               ),
               AppSpacing.gap24,
               buildUserInfo(context, state),
+              if (state.submitError != null) ...[
+                AppSpacing.gap16,
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: colorScheme.errorContainer,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    state.submitError!,
+                    style: textTheme.bodyMedium?.copyWith(
+                      color: colorScheme.onErrorContainer,
+                    ),
+                  ),
+                ),
+              ],
             ],
           ),
         ),

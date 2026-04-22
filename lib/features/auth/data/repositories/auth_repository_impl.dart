@@ -117,4 +117,27 @@ final class _AuthRepositoryImpl implements AuthRepository {
       return const Error(UnknownFailure());
     }
   }
+
+  @override
+  Future<Result<SignInResponse, Failure>> signUpThenSignIn({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String password,
+    required String imageUrl,
+  }) async {
+    try {
+      final result = await _dataSource.signUpThenSignIn(
+        SignUpRequestDto(firstName: firstName, lastName: lastName, email: email, password: password, imageUrl: imageUrl),
+      );
+      if (!result.success) {
+        return Error(ServerFailure(result.message, statusCode: result.statusCode));
+      }
+      return Success(AuthMapper.fromSignInResponseDto(result.data!));
+    } on DioException catch (e) {
+      return Error(mapDioError(e));
+    } catch (_) {
+      return const Error(UnknownFailure());
+    }
+  }
 }

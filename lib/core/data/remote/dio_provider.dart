@@ -1,4 +1,4 @@
-import 'package:demo_app/config/lib/config/app_config.dart';
+import 'package:demo_app/config/app_config.dart';
 import 'package:demo_app/core/data/local/secure_storage/secure_storage_provider.dart';
 import 'package:demo_app/core/data/remote/interceptors/auth_interceptor.dart';
 
@@ -39,6 +39,6 @@ Dio dioWithAuth(Ref ref) {
 
   final instance = Dio(base.options.copyWith());
   instance.interceptors.addAll(base.interceptors);
-  instance.interceptors.add(AuthInterceptor(storage, authDs));
+  instance.interceptors.add(AuthInterceptor(storage, authDs, instance));
   return instance;
 }

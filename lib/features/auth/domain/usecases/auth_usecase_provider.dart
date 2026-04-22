@@ -2,6 +2,7 @@ import 'package:demo_app/features/auth/data/repositories/auth_repository_impl.da
 import 'package:demo_app/features/auth/domain/usecases/google_sign_in_usecase.dart';
 import 'package:demo_app/features/auth/domain/usecases/sign_in_usecase.dart';
 import 'package:demo_app/features/auth/domain/usecases/sign_out_usecase.dart';
+import 'package:demo_app/features/auth/domain/usecases/sign_up_then_sign_in_usecase.dart';
 import 'package:demo_app/features/auth/domain/usecases/sign_up_usecase.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -18,3 +19,6 @@ SignOutUseCase signOutUseCase(Ref ref) => SignOutUseCase(ref.watch(authRepositor
 
 @riverpod
 SignUpUseCase signUpUseCase(Ref ref) => SignUpUseCase(ref.watch(authRepositoryProvider));
+
+@Riverpod(keepAlive: true)
+SignUpThenSignInUseCase signUpThenSignInUseCase(Ref ref) => SignUpThenSignInUseCase(ref.watch(authRepositoryProvider));

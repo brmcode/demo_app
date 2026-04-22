@@ -17,6 +17,11 @@ part 'auth_remote_datasource.g.dart';
 abstract class AuthRemoteDataSource {
   factory AuthRemoteDataSource(Dio dio, {String? baseUrl}) = _AuthRemoteDataSource;
 
+  @POST('/api/auth/register_login')
+  Future<SignInResult<SignInResponseDto>> signUpThenSignIn(
+    @Body() SignUpRequestDto body,
+  );
+
   @POST('/api/auth/login')
   Future<SignInResult<SignInResponseDto>> signIn(
     @Body() SignInRequestDto body,

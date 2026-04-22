@@ -5,10 +5,11 @@ import 'package:dio/dio.dart';
 
 /// Injects access-token and transparently refreshes it on 401.
 final class AuthInterceptor extends Interceptor {
-  AuthInterceptor(this._storage, this._authDs);
+  AuthInterceptor(this._storage, this._authDs, this._dio);
 
   final SecureStorage _storage;
   final AuthRemoteDataSource _authDs;
+  final Dio _dio;
 
   @override
   void onRequest(
@@ -27,7 +28,9 @@ final class AuthInterceptor extends Interceptor {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
-    if (err.response?.statusCode != 401) return handler.next(err);
+    if (err.response?.statusCode != 401 || _isRefreshRequest(err.requestOptions)) {
+      return handler.next(err);
+    }
 
     final refreshToken = await _storage.read(SecureStorageKeys.refreshToken);
     if (refreshToken == null) return handler.next(err);
@@ -45,8 +48,13 @@ final class AuthInterceptor extends Interceptor {
           SecureStorageKeys.refreshToken,
           result.data!.refreshToken,
         );
-        final retried = err.requestOptions..headers['Authorization'] = 'Bearer ${result.data!.accessToken}';
-        final response = await Dio().fetch(retried);
+        final retried = err.requestOptions.copyWith(
+          headers: {
+            ...err.requestOptions.headers,
+            'Authorization': 'Bearer ${result.data!.accessToken}',
+          },
+        );
+        final response = await _dio.fetch(retried);
         return handler.resolve(response);
       }
     } catch (_) {
@@ -56,5 +64,11 @@ final class AuthInterceptor extends Interceptor {
     handler.next(err);
   }
 
-  bool _requiresAuth(String path) => !path.contains('/api/auth/login') && !path.contains('/api/auth/register');
+  bool _requiresAuth(String path) =>
+      !path.contains('/api/auth/login') &&
+      !path.contains('/api/auth/register') &&
+      !path.contains('/api/auth/refresh') &&
+      !path.contains('/api/oauth/mobile/google');
+
+  bool _isRefreshRequest(RequestOptions options) => options.path.contains('/api/auth/refresh');
 }

@@ -3,8 +3,9 @@ import 'package:demo_app/core/presentation/router/app_route.dart';
 import 'package:demo_app/core/theme/app_spacing.dart';
 import 'package:demo_app/features/auth/domain/entities/user.dart';
 import 'package:demo_app/features/auth/presentation/providers/sign_in_provider.dart';
-
+import 'package:demo_app/features/auth/presentation/providers/sign_up_provider.dart';
 import 'package:demo_app/features/auth/presentation/states/sign_in_state.dart';
+import 'package:demo_app/features/auth/presentation/states/sign_up_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -15,14 +16,17 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authState = ref.watch(signInProvider);
+    final signInState = ref.watch(signInProvider);
+    final signUpState = ref.watch(signUpProvider);
+    final currentUser = _resolveCurrentUser(signInState, signUpState);
+    final isAuthenticated = currentUser != null;
 
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
-          if (authState is SignInSuccess)
+          if (isAuthenticated)
             IconButton(
               onPressed: () async {
                 context.goNamed(AppRoute.auth.name);
@@ -35,14 +39,20 @@ class HomePage extends ConsumerWidget {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 32),
-          child: authState is SignInSuccess
-              ? _ProfileView(user: authState.response.user)
+          child: isAuthenticated
+              ? _ProfileView(user: currentUser)
               : _NotSignedInView(
                   onSignIn: () => context.goNamed(AppRoute.auth.name),
                 ),
         ),
       ),
     );
+  }
+
+  User? _resolveCurrentUser(SignInState signInState, SignUpState signUpState) {
+    if (signInState is SignInSuccess) return signInState.response.user;
+    if (signUpState is SignUpSuccess) return signUpState.response.user;
+    return null;
   }
 }
 

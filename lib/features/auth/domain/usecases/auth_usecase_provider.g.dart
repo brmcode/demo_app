@@ -179,3 +179,51 @@ final class SignUpUseCaseProvider
 }
 
 String _$signUpUseCaseHash() => r'a17a800a8f36957d8f48f69f71ba5bd9f882df68';
+
+@ProviderFor(signUpThenSignInUseCase)
+final signUpThenSignInUseCaseProvider = SignUpThenSignInUseCaseProvider._();
+
+final class SignUpThenSignInUseCaseProvider
+    extends
+        $FunctionalProvider<
+          SignUpThenSignInUseCase,
+          SignUpThenSignInUseCase,
+          SignUpThenSignInUseCase
+        >
+    with $Provider<SignUpThenSignInUseCase> {
+  SignUpThenSignInUseCaseProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'signUpThenSignInUseCaseProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$signUpThenSignInUseCaseHash();
+
+  @$internal
+  @override
+  $ProviderElement<SignUpThenSignInUseCase> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  SignUpThenSignInUseCase create(Ref ref) {
+    return signUpThenSignInUseCase(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SignUpThenSignInUseCase value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SignUpThenSignInUseCase>(value),
+    );
+  }
+}
+
+String _$signUpThenSignInUseCaseHash() =>
+    r'eee8f9c8bfcf2acdfd4e9a77005dd05053b70874';

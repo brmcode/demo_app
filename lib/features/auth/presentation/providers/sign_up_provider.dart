@@ -1,8 +1,9 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:demo_app/config/lib/config/app_config.dart';
-import 'package:demo_app/core/domain/entities/failure.dart';
+import 'package:demo_app/config/app_config.dart';
+import 'package:demo_app/core/data/local/secure_storage/secure_storage.dart';
+import 'package:demo_app/core/data/local/secure_storage/secure_storage_provider.dart';
 import 'package:demo_app/features/auth/domain/usecases/auth_usecase_provider.dart';
 import 'package:demo_app/features/auth/domain/usecases/sign_up_usecase.dart';
 import 'package:demo_app/features/auth/presentation/states/sign_up_state.dart';
@@ -37,13 +38,14 @@ class SignUpNotifier extends _$SignUpNotifier {
         email: email,
         password: password,
         confirmPassword: confirmPassword,
+        submitError: null,
       );
     }
   }
 
   void updateStep3({String? imagePath}) {
     if (state case SignUpData d) {
-      state = d.copyWith(imagePath: imagePath);
+      state = d.copyWith(imagePath: imagePath, submitError: null);
     }
   }
 
@@ -57,13 +59,17 @@ class SignUpNotifier extends _$SignUpNotifier {
     // Validate all fields
     final errors = _validate(d);
     if (errors.isNotEmpty) {
-      state = SignUpState.error(ValidationFailure(errors.first));
+      state = d.copyWith(
+        isLoading: false,
+        submitError: errors.first,
+      );
       return;
     }
 
-    state = d.copyWith(isLoading: true);
+    state = d.copyWith(isLoading: true, submitError: null);
 
     String imageUrl = '';
+    var uploadFailed = false;
 
     // Upload avatar if chosen
     if (d.imagePath != null) {
@@ -74,14 +80,17 @@ class SignUpNotifier extends _$SignUpNotifier {
         log('[SignUp] Avatar uploaded: $imageUrl');
       });
       uploadResult.whenError((f) {
-        state = SignUpState.error(f);
-        return;
+        uploadFailed = true;
+        state = d.copyWith(
+          isLoading: false,
+          submitError: f.message,
+        );
       });
     }
+    if (uploadFailed) return;
 
-    // Register
     final result = await ref
-        .read(signUpUseCaseProvider)
+        .read(signUpThenSignInUseCaseProvider)
         .call(
           SignUpParams(
             firstName: d.firstName,
@@ -93,9 +102,17 @@ class SignUpNotifier extends _$SignUpNotifier {
         );
 
     result
-      ..whenSuccess((user) => state = SignUpState.success(user))
+      ..whenSuccess((response) async {
+        final storage = ref.read(secureStorageProvider);
+        await storage.write(SecureStorageKeys.accessToken, response.accessToken);
+        await storage.write(SecureStorageKeys.refreshToken, response.refreshToken);
+        state = SignUpState.success(response);
+      })
       ..whenError((f) {
-        state = SignUpState.error(f);
+        state = d.copyWith(
+          isLoading: false,
+          submitError: f.message,
+        );
       });
   }
 
